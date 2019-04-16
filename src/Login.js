@@ -16,23 +16,31 @@ userChange = (e, stateProperty) => {
   }
 render() {
 return( 
-<div>
-<form>
-<input
-value={this.state.username}
-placeholder='Username'
-onChange={e => this.userChange(e, 'username')}
-/>
-<input 
-value={this.state.password}
-placeholder='Password'
-onChange={e => this.userChange(e, 'password')}
-/>
-<button type='submit'>LOGIN</button>
-</form>
-        </div>
+    <div className="wrapper">
+    <form className="signin">
+        <h2 className="login-header">Log in</h2>
+
+    <input
+    className="form-control"
+     placeholder="username" 
+    />
+    <br></br>
+    <input 
+    className="form-control"
+    placeholder="password"
+    
+    />
+    <br></br>
+    <button
+    type="submit"
+    className="login"
+    >Login</button>
+    <h4>Don't have an account? <button className="signup">Sign Up</button></h4>
+    </form>
+    </div>
+
     )
-};
+}
 }
 
 export default Login;
