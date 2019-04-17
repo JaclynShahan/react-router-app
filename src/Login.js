@@ -4,22 +4,31 @@ import ReactDOM from 'react-dom';
 import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 import { Icon } from 'antd';
 import Modal from './Modal';
+import DrawerForm from './DrawerForm';
 
 class Login extends Component {
     constructor() {
         super();
         this.state = {
-
+            visible: false
         }
     }
-
+showDrawer = () => {
+    console.log('hi')
+        this.setState({
+          visible: true,
+        });
+      };
 userChange = (e, stateProperty) => {
     this.setState({[stateProperty]: e.target.value})
   }
 render() {
+    console.log(this.state)
 return( 
+
     <div className="wrapper">
-    <form className="signin">
+    <div className="signin">
+    <form>
         <h2 className="login-header">Log in</h2>
     
     <Icon type='user'/>
@@ -37,14 +46,17 @@ return(
     />
     <br></br>
     <br></br>
+    
     <button
     type="submit"
     className="login"
     >Login</button>
-    <h4>Don't have an account?</h4><button  className='signup'><Modal onDelete={this.onDelete} adduser={this.props.addUser}/>Sign Up<Icon type='user-add'/> </button>
     </form>
+    <h4>Don't have an account?</h4>
+    <button className='signup' onClick={this.showDrawer}> Sign Up<Icon type='user-add'/></button>
+    <DrawerForm visible={this.state.visible}/>
     </div>
-
+    </div>
     )
 }
 }
