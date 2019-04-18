@@ -19,9 +19,10 @@ constructor() {
 render() {
   return(
     <div>
-      <div>
+      <div className="topnav" id="myTopnav">
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
+        <Link to="/forum">Forum</Link>
       </div>
       {router} {/* RENDER THE ROUTER HERE this is your slideshow*/}
       

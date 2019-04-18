@@ -10,11 +10,7 @@ class DrawerForm extends Component {
 
   }
   }
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
+ 
 
   render() {
   
@@ -24,7 +20,7 @@ class DrawerForm extends Component {
           title="Create an Account"
           placement="right"
           closable={false}
-          onClose={this.onClose}
+          onClose={this.props.onClose}
           visible={this.props.visible}
         >
           <input 
@@ -51,7 +47,7 @@ class DrawerForm extends Component {
           <br></br>
           <button className='signup'><Icon type='check'/>Submit</button>
 
-          <button className='signup'><Icon type='close'/>Cancel</button>
+          <button onClick={() => this.props.onClose()} className='signup'><Icon type='close'/>Cancel</button>
         </Drawer>
 
     );

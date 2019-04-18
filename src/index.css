@@ -15,10 +15,14 @@ code {
 }
 .signin {
   max-width: 380px;
-  padding: 15px 35px 45px;
+  padding: 25px 55px 55px;
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid rgba(0,0,0,0.1); 
+}
+.background {
+  background-color: #d9e4f5;
+  background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
 }
 .wrapper {	
     background: #50a3a2;
@@ -26,6 +30,7 @@ code {
   background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
   background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
   background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+  border-color: black;
     
     position: absolute;
     top: 50%;
@@ -42,13 +47,14 @@ code {
   height: auto;
   padding: 20px;
   box-sizing:border-box;
+  border-color: darkolivegreen;
 
 }
 .btn {
   background-color: #ddd;
   border: none;
   color: black;
-  padding: 16px 32px;
+  padding: 30px 32px;
   text-align: center;
   font-size: 16px;
   margin: 4px 2px;
@@ -99,4 +105,33 @@ code {
   background-color: rgb(18, 179, 152);
   color: black;
   border: none;
+}
+.topnav {
+  background: #50a3a2;
+  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Add an active class to highlight the current page */
+.active {
+  background-color: #4CAF50;
+  color:rgb(14, 13, 13);
+}
+.topnav a:hover {
+  background-color:  rgb(18, 179, 152);
+  color: rgb(252, 240, 240);
 }

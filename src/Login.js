@@ -19,13 +19,17 @@ showDrawer = () => {
           visible: true,
         });
       };
+      onClose = () => {
+        this.setState({
+          visible: false,
+        });
+      };
 userChange = (e, stateProperty) => {
     this.setState({[stateProperty]: e.target.value})
   }
 render() {
     console.log(this.state)
 return( 
-
     <div className="wrapper">
     <div className="signin">
     <form>
@@ -54,7 +58,7 @@ return(
     </form>
     <h4>Don't have an account?</h4>
     <button className='signup' onClick={this.showDrawer}> Sign Up<Icon type='user-add'/></button>
-    <DrawerForm visible={this.state.visible}/>
+    <DrawerForm visible={this.state.visible} onClose={this.onClose}/>
     </div>
     </div>
     )
