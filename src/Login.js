@@ -11,8 +11,8 @@ class Login extends Component {
         super();
         this.state = {
             visible: false,
-            username: '',
-            password: ''
+            email: '',
+            password: '',
         }
     }
 showDrawer = () => {
@@ -28,8 +28,9 @@ showDrawer = () => {
       };
  getUser = (e) => {
         e.preventDefault();
-    Axios.get(`/api/getUser?user=${this.state.username}&password=${this.state.password}`).then((resp) => {console.log(resp)
+    Axios.get(`/api/getUser?email=${this.state.email}&password=${this.state.password}`).then((resp) => {console.log(resp)
     })
+
     this.onClear()
 }
 
@@ -39,8 +40,9 @@ changeUser = (e, stateProperty) => {
 
 onClear = () => {
   this.setState({
-      username: '',
-      password: ''
+      email: '',
+      password: '',
+    
   })
 }
 render() {
@@ -54,9 +56,9 @@ return(
     <Icon type='user'/>
     <input
     className="form-control"
-     placeholder="username" 
-     value={this.state.username}
-     onChange={e => this.changeUser(e, 'username')}
+     placeholder="Email" 
+     value={this.state.email}
+     onChange={e => this.changeUser(e, 'email')}
     />
     <br></br>
     <br></br>
