@@ -10,6 +10,14 @@ app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+let user = [];
+
+
+
+app.get('/api/getUser', (req, res) => {
+    console.log(req.query)
+})
+
 app.post('/api/addUser', (req, res) => {
     console.log(req.body)
 })

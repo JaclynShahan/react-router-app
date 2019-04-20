@@ -26,16 +26,14 @@ showDrawer = () => {
           visible: false,
         });
       };
- addUser = (e) => {
+ getUser = (e) => {
         e.preventDefault();
-    Axios.post('/api/addUser', {
-        username: this.state.username,
-        password: this.state.password
-    }).then((resp) => {console.log(resp)})
+    Axios.get(`/api/getUser?user=${this.state.username}&password=${this.state.password}`).then((resp) => {console.log(resp)
+    })
     this.onClear()
 }
 
-userChange = (e, stateProperty) => {
+changeUser = (e, stateProperty) => {
     this.setState({[stateProperty]: e.target.value})
   }
 
@@ -58,22 +56,23 @@ return(
     className="form-control"
      placeholder="username" 
      value={this.state.username}
-     onChange={e => this.userChange(e, 'username')}
+     onChange={e => this.changeUser(e, 'username')}
     />
     <br></br>
     <br></br>
     <Icon type='lock'/>
     <input
+    type='password'
     className="form-control"
     placeholder="password"
     value={this.state.password}
-    onChange={e => this.userChange(e, 'password')} 
+    onChange={e => this.changeUser(e, 'password')} 
     />
     <br></br>
     <br></br>
     
     <button
-    onClick={(e) => this.addUser(e)}
+    onClick={(e) => this.getUser(e)}
     type="submit"
     className="login"
     >Login</button>
