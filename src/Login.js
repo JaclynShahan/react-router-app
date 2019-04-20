@@ -10,7 +10,9 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
-            visible: false
+            visible: false,
+            username: '',
+            password: ''
         }
     }
 showDrawer = () => {
@@ -24,9 +26,25 @@ showDrawer = () => {
           visible: false,
         });
       };
+ addUser = (e) => {
+        e.preventDefault();
+    Axios.post('/api/addUser', {
+        username: this.state.username,
+        password: this.state.password
+    }).then((resp) => {console.log(resp)})
+    this.onClear()
+}
+
 userChange = (e, stateProperty) => {
     this.setState({[stateProperty]: e.target.value})
   }
+
+onClear = () => {
+  this.setState({
+      username: '',
+      password: ''
+  })
+}
 render() {
     console.log(this.state)
 return( 
@@ -39,6 +57,8 @@ return(
     <input
     className="form-control"
      placeholder="username" 
+     value={this.state.username}
+     onChange={e => this.userChange(e, 'username')}
     />
     <br></br>
     <br></br>
@@ -46,12 +66,14 @@ return(
     <input
     className="form-control"
     placeholder="password"
-    
+    value={this.state.password}
+    onChange={e => this.userChange(e, 'password')} 
     />
     <br></br>
     <br></br>
     
     <button
+    onClick={(e) => this.addUser(e)}
     type="submit"
     className="login"
     >Login</button>

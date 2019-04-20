@@ -10,6 +10,10 @@ app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.post('/api/addUser', (req, res) => {
+    console.log(req.body)
+})
+
 
 const port = 4001;
 app.listen(port, () => console.log(`Server listening on port ${port}`))
