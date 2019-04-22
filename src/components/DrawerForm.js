@@ -20,7 +20,7 @@ class DrawerForm extends Component {
   arrayChanger = () => {
     console.log(this.props.setUser)
     let tempArr = this.props.setUser.newUser //cannot mutate state/props-create a duplicate
-    tempArr.push(this.props.setUser.loginHolder) //pushing the text into tempArr
+    tempArr.push(this.props.setUser.newUser) //pushing the text into tempArr
     this.props.userAdder(tempArr)
 }
   addUser = (e) => {
