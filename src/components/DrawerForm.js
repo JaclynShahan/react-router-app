@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Drawer, Button, Icon } from 'antd';
 import Axios from 'axios';
+import {connect} from 'react-redux';
 
 class DrawerForm extends Component {
   constructor(){
@@ -16,6 +17,12 @@ class DrawerForm extends Component {
 
   }
   }
+  arrayChanger = () => {
+    console.log(this.props.setUser)
+    let tempArr = this.props.setUser.newUser //cannot mutate state/props-create a duplicate
+    tempArr.push(this.props.setUser.loginHolder) //pushing the text into tempArr
+    this.props.userAdder(tempArr)
+}
   addUser = (e) => {
     e.preventDefault();
 Axios.post('/api/addUser', {
@@ -52,7 +59,7 @@ this.setState({
           closable={false}
           onClose={this.props.onClose}
           visible={this.props.visible}
-        >
+        > 
           <input 
           className='form-control'
           placeholder='First Name'
@@ -86,7 +93,10 @@ this.setState({
           />
           <br></br>
           <br></br>
-          <button onClick={(e) => this.addUser(e)}className='signup'><Icon type='check'/>Submit</button>
+      
+        {//<button onClick={(e) => this.addUser(e)}className='signup'><Icon type='check'/>Submit</button>
+        }
+        <button onClick={this.arrayChanger} className='signup'><Icon type='check' />SUBMIT</button>
 
           <button onClick={() => this.props.onClose()} className='signup'><Icon type='close'/>Cancel</button>
         </Drawer>
@@ -95,4 +105,27 @@ this.setState({
   }
 } 
 
-export default DrawerForm;
+//create mapStateToProps function
+const mapStateToProps = state => state;
+//you'll use this to dispatch payloads to redux
+const mapDispatchToProps = dispatch => ({
+//functions added here will be available on props
+userAdder(newUser) { //dispatches and object with type and payload
+    //numberAdder seen in props
+    dispatch({
+        type: 'SET_USER',//type is where we send it
+        payload: newUser //payload is the data
+    })
+}, addText(e) {
+  dispatch({
+      type: "SET_TEXT",
+      payload: e.target.value
+  })
+},
+
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerForm);
+//be sure to add parenthesis around your component name as well
+//connect takes 2 params: mapStateToProps, and object

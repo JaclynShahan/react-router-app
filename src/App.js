@@ -4,7 +4,7 @@ import './App.css';
 import router from './router';
 import {Link} from 'react-router-dom'
 import Axios from 'axios';
-import Login from './Login';
+import Login from './components/Login';
 import Home from './Home';
 class App extends Component {
 constructor() {

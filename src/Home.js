@@ -1,4 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import Axios from 'axios';
+import ReactDOM from 'react-dom';
+import renderEmpty from 'antd/lib/config-provider/renderEmpty';
+import { Icon } from 'antd';
+import Modal from './components/Modal';
+import DrawerForm from './components/DrawerForm';
+import {connect} from 'react-redux';
 import './App.css';
 
 class Home extends Component {

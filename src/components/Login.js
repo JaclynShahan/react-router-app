@@ -5,6 +5,7 @@ import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 import { Icon } from 'antd';
 import Modal from './Modal';
 import DrawerForm from './DrawerForm';
+import {connect} from 'react-redux';
 
 class Login extends Component {
     constructor() {
@@ -47,6 +48,7 @@ onClear = () => {
 }
 render() {
     console.log(this.state)
+    console.log(this.props)
 return( 
     <div className="wrapper">
     <div className="signin">
