@@ -54,7 +54,17 @@ app.post('/api/addUser', (req, res) => {
     console.log(req.body)
     r.table('Users').insert(req.body)
     .run(connection, (err, data) => {
-        console.log(res.status)
+        console.log(data.generated_keys)
+        r.table('Users').get(data.generated_keys[0])
+        .run(connection, (err, userData) => {
+            console.log(userData)
+            res.status(200).send(userData)
+           // cursor.toArray(
+             //   (err, userData) => {
+               //     console.log(userData)
+               // }
+           // )
+        })
     }) 
 })
 
