@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Drawer, Button, Icon } from "antd";
+import { Drawer, Button, Icon, notification } from "antd";
 import Axios from "axios";
 import { connect } from "react-redux";
+import {Link, Redirect} from 'react-router-dom';
+import { ENGINE_METHOD_NONE } from "constants";
 
 class DrawerForm extends Component {
   constructor() {
@@ -40,7 +42,7 @@ class DrawerForm extends Component {
     }).then(resp => {
       this.onClear();
       this.props.userAdder(resp.data);
-      alert('New User Created')
+      this.openNotification();
       console.log(resp);
     });
   };
@@ -58,6 +60,21 @@ class DrawerForm extends Component {
       createPassword: ""
     });
   };
+  openNotification = () => {
+    notification.open({
+      message: 'User Successfully Added',
+    description: 'Start Chatting',
+      onClick: () => {
+        console.log('Notification Clicked!'); 
+      },
+
+    });
+    this.redirect();
+  };
+
+  redirect = () => {
+    return <Redirect to='/forum'/>
+  }
 
   render() {
     console.log(this.props);
@@ -111,7 +128,10 @@ class DrawerForm extends Component {
         {
           //<button onClick={this.arrayChanger} className='signup'><Icon type='check' />SUBMIT</button>
         }
-        <button onClick={() => this.props.onClose()} className="signup">
+        <button 
+        onClick={() => this.props.onClose()}
+        type='primary'
+         className="signup">
           <Icon type="close" />
           Cancel
         </button>

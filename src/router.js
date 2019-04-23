@@ -7,6 +7,7 @@ import store from './store';
 import Login from './components/Login.js';
 import Home from './Home';
 import Forum from './components/Forum';
+import DrawerForm from './components/DrawerForm';
 // import the components you want to use here.
 
 // define the routes below.
