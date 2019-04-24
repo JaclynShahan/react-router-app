@@ -14,7 +14,8 @@ class DrawerForm extends Component {
       lastName: "",
       email: "",
       createUsername: "",
-      createPassword: ""
+      createPassword: "",
+      redirect: ''
     };
   }
   // arrayChanger = () => {
@@ -61,20 +62,29 @@ class DrawerForm extends Component {
     });
   };
   openNotification = () => {
+    const close = () => {
+      console.log('Notification was closed. Either the close button was clicked or duration time elapsed.');
+
+    };
+    const key = `open${Date.now()}`;
+    const btn = () => {
+      return(
+        <Button type='primary' size='small' onClick={() => notification.close(key)}></Button>
+      )
+    }
     notification.open({
       message: 'User Successfully Added',
-    description: 'Start Chatting',
+    description: <Button type='primary' size='small' onClick={() => notification.close(key)}>Return to Site</Button>,
+    btn,
+    key,
+    onClose: close,
       onClick: () => {
         console.log('Notification Clicked!'); 
+        this.setState({redirect: <Redirect to='/forum'/>});
       },
-
     });
-    this.redirect();
   };
 
-  redirect = () => {
-    return <Redirect to='/forum'/>
-  }
 
   render() {
     console.log(this.props);
@@ -135,6 +145,7 @@ class DrawerForm extends Component {
           <Icon type="close" />
           Cancel
         </button>
+        {this.state.redirect}
       </Drawer>
     );
   }
