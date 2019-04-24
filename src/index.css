@@ -152,3 +152,41 @@ code {
     border: none;
 
 }
+.posting {
+  float: center;
+  display: block;
+  color: #f2f2f2;
+  text-align: left;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  width: 80vw;
+
+  }
+  .comment_block {
+    width: 65%;
+    height: 100%;
+  
+    margin: 0 auto;
+    padding: 10px;
+  }
+  .create_new_comment {
+		width: 100%;
+    padding: 20px 0;
+  }
+  .input_comment {
+      width: 100vw;
+      height: 30px;
+      padding: 20px 0;
+      border-top: 1px solid lightgray;
+  }
+  .user_avatar {
+    width: 65px;
+    height: 65px;
+  
+    display: inline-block;
+    vertical-align: middle;
+  
+   
+  }
+
