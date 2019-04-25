@@ -1,0 +1,17 @@
+@import '~antd/dist/antd.css';
+.App__parent {
+    width: 100%;
+    min-width: 1000px;
+    min-height: 100vh;
+    background-image: linear-gradient(to right top, #6bd187, #5bc685, #4bbb84, #3cb081, #2da57e, #2ba47c, #29a37a, #27a278, #35ab76, #44b372, #54bb6e, #65c369);;
+  }
+  
+  .App__content {
+    width: 1000px;
+    margin: 0 auto;
+    min-height: calc( 100vh - 50px );
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }

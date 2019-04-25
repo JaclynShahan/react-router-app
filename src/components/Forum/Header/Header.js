@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Icon } from 'antd';
-import './ForumHeader.css';
+import './Header.css';
 import Search from '../Search/Search.js';
 
 class ForumHeader extends Component {
