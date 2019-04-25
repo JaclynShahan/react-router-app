@@ -3,10 +3,10 @@ import Axios from 'axios';
 import ReactDOM from 'react-dom';
 import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 import { Icon } from 'antd';
-import Modal from './components/Modal';
-import DrawerForm from './components/DrawerForm';
+import Modal from '../Login/Modal';
+import DrawerForm from '../Login/DrawerForm';
 import {connect} from 'react-redux';
-import './App.css';
+import './Home.css';
 
 class Home extends Component {
     constructor(){
@@ -18,7 +18,7 @@ class Home extends Component {
 
     render(){
         return (
-           <div className='homePic'>
+           <div className='bg bg2 bg3 content h1 body html'>
            <h2>WELCOME PARENTS!</h2>
            </div> 
         )

@@ -163,30 +163,5 @@ code {
   width: 80vw;
 
   }
-  .comment_block {
-    width: 65%;
-    height: 100%;
   
-    margin: 0 auto;
-    padding: 10px;
-  }
-  .create_new_comment {
-		width: 100%;
-    padding: 20px 0;
-  }
-  .input_comment {
-      width: 100vw;
-      height: 30px;
-      padding: 20px 0;
-      border-top: 1px solid lightgray;
-  }
-  .user_avatar {
-    width: 65px;
-    height: 65px;
-  
-    display: inline-block;
-    vertical-align: middle;
-  
-   
-  }
 
