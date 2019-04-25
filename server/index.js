@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 let users = [];
+let posts = [];
 
 let connection;
 r.connect( {
@@ -49,7 +50,32 @@ app.get('/api/getUser', (req, res) => {
             })
     })
 })
+app.get('/api/getPost', (req, res) => {
+    console.log(req.query)
+    r.table('Users').filter(function (post) {
+        return post("date").eq(req.query.date);
+    }).run(connection, (err, cursor) => {
+        if (err) console.log(err)
+        cursor.toArray(
+            (err, data) => {
+                if(data.length == 0) {
+                    res.status(200).send('Not Found');
+                } else {
+                    res.status(200).send(data)
+                    console.log(data)
+                }
+            }
+        )
+    })
+})
 
+app.put('/api/updatePosts', (req, res) => {
+    console.log(req.body)
+    r.table('Users').get(req.body.id).update({posts: req.body.tempArr}).run(connection, (err, data) => {
+    console.log(data)
+    getPost(res)
+})
+})
 app.post('/api/addUser', (req, res) => {
     console.log(req.body)
     r.table('Users').insert(req.body)
