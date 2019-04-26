@@ -8,10 +8,12 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import promiseMiddleware from 'redux-promise-middleware'
 //import your reducers
 import setUser from './reducers/setUser';
+import getPost from './reducers/getPost';
 
 export default createStore(
 combineReducers ({
 // reducers go here
-setUser, //coma seperated
+setUser, 
+getPost//coma seperated
 })
 , applyMiddleware(promiseMiddleware));

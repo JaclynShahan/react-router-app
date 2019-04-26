@@ -4,8 +4,9 @@ import Header from '../Forum/Header/Header.js';
 import Compose from '../Forum/Compose/Compose.js';
 import Search from '../Forum/Search/Search.js';
 import './Forum.css';
-import axios from 'axios';
+import Axios from 'axios';
 import Post from './Compose/Post/Post.js';
+import {connect} from 'react-redux';
 
 class Forum extends Component {
     constructor() {
@@ -13,29 +14,30 @@ class Forum extends Component {
         this.state = {
             posts: []
         }
-        this.updatePost = this.updatePost.bind(this);
-        this.deletePost = this.deletePost.bind(this);
-        this.createPost = this.createPost.bind(this);
+        //this.updatePost = this.updatePost.bind(this);
+        //this.deletePost = this.deletePost.bind(this);
+        this.makePost = this.makePost.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/getPost').then(results => {this.setState({posts: results.data})})
+      Axios.get('/api/getPosts').then(results => {this.props.postAdder(results.data)})
     }
-    updatePost(id, text) {
-        axios.put(`/api/updatePosts?id=${id}`, {text}).then(results => {
-          this.setState({posts: results.data});
-        });
-        }
+
+    //updatePost(id, text) {
+      //  axios.put(`/api/updatePosts?id=${id}`, {text}).then(results => {
+        //  this.setState({posts: results.data});
+        //});
+       // }
       
         deletePost(id) {
-          axios.delete(`/api/posts?id=${id}`).then( results => {
+          Axios.delete(`/api/deletePost?id=${id}`).then( results => {
             this.setState({posts: results.data});
           });
       
         }
       
-        createPost(text) {
-          axios.post('/api/posts', {text}).then( results => {
+        makePost(text) {
+          Axios.post('/api/createPost', {text}).then( results => {
             this.setState({posts: results.data});
           });
       
@@ -43,22 +45,23 @@ class Forum extends Component {
 
 
 render() {
-const {posts} = this.state
+  console.log(this.props)
+const {newPost: posts} = this.props.getPost
     return (
       <div className="App__parent">
         <Header />
 
         <section className="App__content">
 
-          <Compose createPostFn={this.createPost}/>
+          <Compose createPostFn={this.makePost}/>
           {
               posts.map(post => (
                   <Post
                   key={post.id}
                   text={post.text}
                   date={post.date}
-                  updatePostFn={this.updatePost}
-                  deletePostFn={this.deletPost}
+                 // updatePostFn={this.updatePost}
+                  deletePostFn={this.deletePost}
                   />
 
               ))
@@ -69,4 +72,28 @@ const {posts} = this.state
   }
 }
 
-export default Forum;
+//create mapStateToProps function
+const mapStateToProps = state => state;
+//you'll use this to dispatch payloads to redux
+const mapDispatchToProps = dispatch => ({
+  //functions added here will be available on props
+  postAdder(newPost) {
+    //dispatches and object with type and payload
+    //numberAdder seen in props
+    dispatch({
+      type: "ADD_POST", //type is where we send it
+      payload: newPost //payload is the data
+    });
+  },
+  // addPost(e) {
+  //   dispatch({
+  //     type: "SET_POST",
+  //     payload: e.target.value
+  //   });
+  // }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Forum);

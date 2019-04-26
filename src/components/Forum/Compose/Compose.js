@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd';
 import './Compose.css';
+import Axios from 'axios';
+import {connect} from 'react-redux';
 
 // THIS COMPONENT IS BEING RENDERED IN THE *APP* COMPONENT
 
@@ -12,21 +14,40 @@ import './Compose.css';
         text: ''
       };
   
-      this.createPost = this.createPost.bind( this );
+      this.makePost = this.makePost.bind( this );
     }
   
     updateText( text ) {
       this.setState({ text });
     }
+    clearField = () => {
+      this.setState({
+        text: ""
+      })
+    }
+    getPost = e => {
+      e.preventDefault();
+      Axios.get(
+        `/api/getPosts?text=${this.state.text}`
+      ).then(resp => {
+        console.log(resp);
+      });
   
-    createPost() {
-      const {text} = this.state;
-      const {createPostFn} = this.props;
-      
-      createPostFn(text);
-      this.setState({text: ''});
+      this.clearField();
+    };
+    makePost = e  => {
+      e.preventDefault();
+      Axios.post("/api/createPost", {
+        text: this.state.text
+        
+      }).then(resp => {
+        this.props.postAdder(resp.data);
+        console.log(resp);
+      })
+     this.clearField()
     }
   
+   
     render() {
       // Destructuring
       const { text } = this.state;
@@ -49,11 +70,38 @@ import './Compose.css';
           </div>
   
           <div className="Compose__bottom">
-            <button className='Compose_button' onClick={ this.createPost }>Update</button>
+            <button className='Compose_button' onClick={e => this.makePost(e) }>Update</button>
           </div>
         </section>
       )
     }
 }
 
-export default Compose;
+
+//create mapStateToProps function
+const mapStateToProps = state => state;
+//you'll use this to dispatch payloads to redux
+const mapDispatchToProps = dispatch => ({
+  //functions added here will be available on props
+  postAdder(newPost) {
+    //dispatches and object with type and payload
+    //numberAdder seen in props
+    dispatch({
+      type: "ADD_POST", //type is where we send it
+      payload: newPost //payload is the data
+    });
+  },
+  addPost(e) {
+    dispatch({
+      type: "SET_POST",
+      payload: e.target.value
+    });
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Compose);
+//be sure to add parenthesis around your component name as well
+//connect takes 2 params: mapStateToProps, and object
