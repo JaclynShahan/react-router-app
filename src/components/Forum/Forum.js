@@ -7,6 +7,7 @@ import './Forum.css';
 import Axios from 'axios';
 import Post from './Compose/Post/Post.js';
 import {connect} from 'react-redux';
+import Edit from './Compose/Post/Edit/Edit.js';
 
 class Forum extends Component {
     constructor() {
@@ -14,8 +15,8 @@ class Forum extends Component {
         this.state = {
             posts: []
         }
-        //this.updatePost = this.updatePost.bind(this);
-        //this.deletePost = this.deletePost.bind(this);
+        this.updatePost = this.updatePost.bind(this);
+        this.deletePost = this.deletePost.bind(this);
         this.makePost = this.makePost.bind(this);
     }
 
@@ -24,11 +25,20 @@ class Forum extends Component {
     }
 
     //updatePost(id, text) {
-      //  axios.put(`/api/updatePosts?id=${id}`, {text}).then(results => {
+      //axios.put(`/api/updatePosts?id=${id}`, {text}).then(results => {
         //  this.setState({posts: results.data});
         //});
-       // }
-      
+        //}
+      updatePost(i, obj) {          
+          let tempArr = this.state.users[i].posts;
+          tempArr.push(obj);
+          Axios.put('/api/updatePost/', {    //i make an update request to update this users id with this new array
+            tempArr: tempArr,
+             id: this.state.posts[i].id
+          }).then((resp) => {console.log(resp)
+          this.setState({posts: resp.data})
+          })
+        }
         deletePost(id) {
           Axios.delete(`/api/deletePost?id=${id}`).then( results => {
             this.setState({posts: results.data});
@@ -60,7 +70,7 @@ const {newPost: posts} = this.props.getPost
                   key={post.id}
                   text={post.text}
                   date={post.date}
-                 // updatePostFn={this.updatePost}
+                 updatePostFn={this.updatePost}
                   deletePostFn={this.deletePost}
                   />
 

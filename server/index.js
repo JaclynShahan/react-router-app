@@ -81,13 +81,13 @@ app.get('/api/getPosts', (req, res) => {
     })
 })
 
-//app.put('/api/updatePosts', (req, res) => {
-  //  console.log(req.body)
-    //r.table('Posts').get(req.body.id).update({posts: req.body.tempArr}).run(connection, (err, data) => {
-    //console.log(data)
-    //getPost(res)
-//})
-//})
+app.put('/api/updatePost', (req, res) => {
+  console.log(req.body)
+    r.table('Posts').get(req.body.id).update({posts: req.body.tempArr}).run(connection, (err, data) => {
+    console.log(data)
+    getPost(res)
+})
+})
 app.post('/api/addUser', (req, res) => {
     console.log(req.body)
     r.table('Users').insert(req.body)

@@ -19,17 +19,15 @@ class ForumHeader extends Component {
         <section className="Header__parent">
         <section className="Header__content">
 
-          {/* Displays the mountain icon in the header */}
+        
           <div className="Header__company-info">
             <Icon type='robot' style={styles}/>
             <span>Brat Chat</span>
           </div>
 
-          {/* Displays the search bar */}
           <div className="Header__right">
             <Search />
 
-            {/* Displays the profile icon */}
             <div className="Header__profile">
               <Icon type='robot' />
             </div>
