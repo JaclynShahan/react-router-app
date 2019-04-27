@@ -39,14 +39,14 @@ import {connect} from 'react-redux';
       e.preventDefault();
       Axios.post("/api/createPost", {
         text: this.state.text
-        
+
       }).then(resp => {
         this.props.postAdder(resp.data);
         console.log(resp);
       })
      this.clearField()
     }
-  
+
    
     render() {
       // Destructuring

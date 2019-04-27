@@ -15,8 +15,8 @@ class Forum extends Component {
         this.state = {
             posts: []
         }
-        this.updatePost = this.updatePost.bind(this);
-        this.deletePost = this.deletePost.bind(this);
+      //  this.updatePost = this.updatePost.bind(this);
+        this.onDelete = this.onDelete.bind(this);
         this.makePost = this.makePost.bind(this);
     }
 
@@ -29,23 +29,27 @@ class Forum extends Component {
         //  this.setState({posts: results.data});
         //});
         //}
-      updatePost(i, obj) {          
-          let tempArr = this.state.users[i].posts;
+        updatePost(i, obj) {          
+          let tempArr = this.state.posts[i];
           tempArr.push(obj);
-          Axios.put('/api/updatePost/', {    //i make an update request to update this users id with this new array
+          Axios.put('/api/updatePost', {    //i make an update request to update this users id with this new array
             tempArr: tempArr,
-             id: this.state.posts[i].id
+             id: this.state.posts.id
           }).then((resp) => {console.log(resp)
           this.setState({posts: resp.data})
           })
         }
-        deletePost(id) {
-          Axios.delete(`/api/deletePost?id=${id}`).then( results => {
-            this.setState({posts: results.data});
-          });
+       // deletePost(id) {
+        //  Axios.delete(`/api/deletePost?id=${id}`).then( results => {
+          //  this.setState({posts: results.data});
+          //});
       
+        //}
+        onDelete(id)  {
+          Axios.delete(`/api/deletePost/${id}`).then((resp) => {console.log(resp)
+          this.setState({posts: resp.data})
+          })
         }
-      
         makePost(text) {
           Axios.post('/api/createPost', {text}).then( results => {
             this.setState({posts: results.data});
@@ -71,7 +75,7 @@ const {newPost: posts} = this.props.getPost
                   text={post.text}
                   date={post.date}
                  updatePostFn={this.updatePost}
-                  deletePostFn={this.deletePost}
+                  deletePostFn={this.onDelete}
                   />
 
               ))

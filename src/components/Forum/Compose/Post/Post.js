@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Icon} from 'antd';
 import './Post.css';
-
+import {FaComment, FaThumbs_up, FaThumbs_down, FaHeart, FaEnvelope} from 'react-icons/fa';
+import {MdFace, MdSend} from 'react-icons/md';
 import Edit from './Edit/Edit';
 
 // THIS COMPONENT IS BEING RENDERED IN THE *APP* COMPONENT
@@ -53,7 +54,7 @@ class Post extends Component {
 
         {/* Three dots in top right corner */}
         <div className="Post__master-controls">
-          <button onClick={ this.toggleMasterMenu }>MasterControls</button>
+          <button onClick={ this.toggleMasterMenu }><Icon type='edit'/></button>
 
           {/* Drop-down menu. Remember that the "showMasterMenu" variable has been destructured off of this.state */}
           <div className="Post__master-menu" style={ { display: showMasterMenu ? 'flex' : 'none' } }>
@@ -65,7 +66,7 @@ class Post extends Component {
        
         <div className="Post__meta-data">
           <div className="Post__profile-picture">
-            <Icon type='robot'/>
+            <MdFace />
           </div>
 
           <span className="Post__name">Post Name</span>
@@ -91,9 +92,16 @@ class Post extends Component {
 
         
         <div className="Post__user-controls">
-          <Icon type='like' />
+          <Icon type='like'/>
+         
           <Icon type='dislike' />
-          <Icon type='message' />
+         
+          <FaComment />
+
+          <FaHeart />
+
+          <MdSend />
+  
         </div>
 
       </section>

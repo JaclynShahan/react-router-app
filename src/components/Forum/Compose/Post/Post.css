@@ -14,8 +14,8 @@
   
   .Post__master-controls {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 8px;
+    right: 8px;
     font-size: 20px;
     cursor: pointer;
   }
@@ -85,7 +85,8 @@
     min-height: 50px;
     box-sizing: border-box;
     padding: 10px;
-    font-size: 20px;
+    font-size: 25px;
+    position: relative;
   }
   
   .Post__control-icon {

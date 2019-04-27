@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Axios from 'axios';
 import './Edit.css';
 
 //////////////////////////////////////////////////////// THIS COMPONENT IS BEING RENDERED IN THE *POST* COMPONENT
@@ -12,7 +12,7 @@ import './Edit.css';
       text: props.text
     };
 
-    this.updatePost = this.updatePost.bind( this );
+  //  this.updatePost = this.updatePost.bind( this );
   }
 
   updateText( value ) {

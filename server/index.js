@@ -85,7 +85,7 @@ app.put('/api/updatePost', (req, res) => {
   console.log(req.body)
     r.table('Posts').get(req.body.id).update({posts: req.body.tempArr}).run(connection, (err, data) => {
     console.log(data)
-    getPost(res)
+    getPosts(res)
 })
 })
 app.post('/api/addUser', (req, res) => {
