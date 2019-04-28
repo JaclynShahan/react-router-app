@@ -70,8 +70,8 @@ class Post extends Component {
             <MdFace />
           </div>
 
-          <span className="Post__name">Post Name</span>
-          <span className="Post__handle">Post Handle</span>
+          <span className="Post__name">{this.props.subject}</span>
+        {/* <span className="Post__handle">Post Handle</span> */}
 
           <span className="Post__date">{date}</span>
         </div>
@@ -93,16 +93,15 @@ class Post extends Component {
 
         
         <div className="Post__user-controls">
-          <Icon type='like'/>
+        <div className='icons'>
+          <Icon type='smile' theme='twoTone' twoToneColor='#DC143C' />
          
-          <Icon type='dislike' />
-         
-          <FaComment />
+          <Icon type='meh' theme='twoTone' twoToneColor='#FF4500'/>
 
-          <FaHeart />
-
-          <MdSend />
-  
+          <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
+          
+          <Icon type='message' theme='twoTone' twoToneColor='24C131'/>
+          </div>
         </div>
 
       </section>

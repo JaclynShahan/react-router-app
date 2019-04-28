@@ -37,7 +37,13 @@
     width: 100%;
     outline: none;
   }
-  
+  .Subject__input {
+    border-radius: 5px;
+    border: 1px solid #2aabe2;
+    padding: 8px;
+    width: 40%;
+    outline: none;
+  }
   .Compose__bottom {
     margin-top: 20px;
     width: 100%;

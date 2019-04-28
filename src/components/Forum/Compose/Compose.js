@@ -4,17 +4,21 @@ import './Compose.css';
 import Axios from 'axios';
 import {connect} from 'react-redux';
 
-// THIS COMPONENT IS BEING RENDERED IN THE *APP* COMPONENT
+
 
   class Compose extends Component {
     constructor() {
       super();
       
       this.state = {
+        subject: '',
         text: ''
       };
   
       this.makePost = this.makePost.bind( this );
+    }
+    updateSubject( subject ) {
+      this.setState({ subject });
     }
   
     updateText( text ) {
@@ -22,7 +26,8 @@ import {connect} from 'react-redux';
     }
     clearField = () => {
       this.setState({
-        text: ""
+        text: "",
+        subject: ""
       })
     }
     getPost = e => {
@@ -38,7 +43,8 @@ import {connect} from 'react-redux';
     makePost = e  => {
       e.preventDefault();
       Axios.post("/api/createPost", {
-        text: this.state.text
+        text: this.state.text,
+        subject: this.state.subject,
 
       }).then(resp => {
         this.props.postAdder(resp.data);
@@ -50,7 +56,7 @@ import {connect} from 'react-redux';
    
     render() {
       // Destructuring
-      const { text } = this.state;
+      const { text, subject } = this.state;
       const {createPostFn} = this.props;
   
       return (
@@ -60,8 +66,13 @@ import {connect} from 'react-redux';
             <div className="Compose__profile-picture">
               <Icon type='robot'/>
             </div>
+            <input
+            className="Subject__input"
+            placeholder="Subject"
+            value={ subject }
+            onChange={(e) => this.updateSubject(e.target.value)}
+            />
   
-            {/* This is where you type the message for your new post */}
             <input className="Compose__input"
                    placeholder="What's on your mind?"
                    value={ text }

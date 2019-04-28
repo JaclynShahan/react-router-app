@@ -29,15 +29,15 @@ class Forum extends Component {
         //  this.setState({posts: results.data});
         //});
         //}
-        updatePost(id, text) {          
-          Axios.put(`/api/updatePost/${id}`, {text}).then(results => {this.props.postAdder(results.data)})
+        updatePost(id, text, subject) {          
+          Axios.put(`/api/updatePost/${id}`, {text, subject}).then(results => {this.props.postAdder(results.data)})
         }
      
         onDelete(id)  {
           Axios.delete(`/api/deletePost/${id}`).then(results => {this.props.postAdder(results.data)})
         }
-        makePost(text) {
-          Axios.post('/api/createPost', {text}).then( results => {
+        makePost(text, subject) {
+          Axios.post('/api/createPost', {text, subject}).then( results => {
             this.setState({posts: results.data});
           });
       
@@ -60,6 +60,7 @@ const {newPost: posts} = this.props.getPost
                   key={post.id}
                   id={post.id}
                   text={post.text}
+                  subject={post.subject}
                   date={post.date}
                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
