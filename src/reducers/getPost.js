@@ -12,7 +12,6 @@ const initialState = {
       case "ADD_POST":
         //console.log('Here is your user new user info:', state)
         return { ...state, newPost: action.payload };
-  
       default:
         return state;
     }

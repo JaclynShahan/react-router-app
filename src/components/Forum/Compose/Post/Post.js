@@ -17,12 +17,13 @@ class Post extends Component {
     };
 
     this.hideEdit = this.hideEdit.bind( this );
-    this.showEdit = this.showEdit.bind( this );
+    //this.showEdit = this.showEdit.bind( this );
     this.toggleMasterMenu = this.toggleMasterMenu.bind( this );
     this.hideMasterMenu = this.hideMasterMenu.bind( this );
   }
 
-  showEdit() {
+  showEdit = () => {
+    console.log('Help Me')
     this.setState({ editing: true, showMasterMenu: false });
   }
 
@@ -46,7 +47,7 @@ class Post extends Component {
   render() {
     const { editing, showMasterMenu } = this.state;
     const {text, date, deletePostFn, id, updatePostFn} = this.props;
-    
+    console.log(this.state)
 
     return (
       // Main body of post

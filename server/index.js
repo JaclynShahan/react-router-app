@@ -81,9 +81,9 @@ app.get('/api/getPosts', (req, res) => {
     })
 })
 
-app.put('/api/updatePost', (req, res) => {
-  console.log(req.body)
-    r.table('Posts').get(req.body.id).update({posts: req.body.tempArr}).run(connection, (err, data) => {
+app.put('/api/updatePost/:id', (req, res) => {
+  console.log(req.params)
+    r.table('Posts').get(req.params.id).update({text: req.body.text}).run(connection, (err, data) => {
     console.log(data)
     getPosts(res)
 })
@@ -118,7 +118,7 @@ app.post('/api/createPost', (req, res) => {
         })
     })
 })
-app.delete('api/deletePost/:id', (req, res) => {
+app.delete('/api/deletePost/:id', (req, res) => {
     console.log(req.params)
     r.table('Posts').get(req.params.id).delete().run(connection, (err, data) => {
         console.log(data)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import './Edit.css';
 
-//////////////////////////////////////////////////////// THIS COMPONENT IS BEING RENDERED IN THE *POST* COMPONENT
+// THIS COMPONENT IS BEING RENDERED IN THE *POST* COMPONENT
 
  class Edit extends Component {
   constructor( props ) {
@@ -12,7 +12,7 @@ import './Edit.css';
       text: props.text
     };
 
-  //  this.updatePost = this.updatePost.bind( this );
+  this.updatePost = this.updatePost.bind( this );
   }
 
   updateText( value ) {
@@ -43,7 +43,7 @@ import './Edit.css';
           {/* This saves your changes made */}
           <button id="Edit__controls-update" 
                   className="Edit__control-btn"
-                  onClick={ this.updatePost }>
+                  onClick={() => this.updatePost() }>
             Update
           </button>
 

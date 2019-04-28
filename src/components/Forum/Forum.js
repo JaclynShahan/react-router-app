@@ -15,7 +15,7 @@ class Forum extends Component {
         this.state = {
             posts: []
         }
-      //  this.updatePost = this.updatePost.bind(this);
+       this.updatePost = this.updatePost.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.makePost = this.makePost.bind(this);
     }
@@ -29,26 +29,12 @@ class Forum extends Component {
         //  this.setState({posts: results.data});
         //});
         //}
-        updatePost(i, obj) {          
-          let tempArr = this.state.posts[i];
-          tempArr.push(obj);
-          Axios.put('/api/updatePost', {    //i make an update request to update this users id with this new array
-            tempArr: tempArr,
-             id: this.state.posts.id
-          }).then((resp) => {console.log(resp)
-          this.setState({posts: resp.data})
-          })
+        updatePost(id, text) {          
+          Axios.put(`/api/updatePost/${id}`, {text}).then(results => {this.props.postAdder(results.data)})
         }
-       // deletePost(id) {
-        //  Axios.delete(`/api/deletePost?id=${id}`).then( results => {
-          //  this.setState({posts: results.data});
-          //});
-      
-        //}
+     
         onDelete(id)  {
-          Axios.delete(`/api/deletePost/${id}`).then((resp) => {console.log(resp)
-          this.setState({posts: resp.data})
-          })
+          Axios.delete(`/api/deletePost/${id}`).then(results => {this.props.postAdder(results.data)})
         }
         makePost(text) {
           Axios.post('/api/createPost', {text}).then( results => {
@@ -72,6 +58,7 @@ const {newPost: posts} = this.props.getPost
               posts.map(post => (
                   <Post
                   key={post.id}
+                  id={post.id}
                   text={post.text}
                   date={post.date}
                  updatePostFn={this.updatePost}
@@ -111,3 +98,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Forum);
+
+//dispatch to props: it dispatches stuff to props. if it returns an object it puts it all back into props. it will be inside this.props
