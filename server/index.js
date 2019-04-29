@@ -42,6 +42,16 @@ getPosts = (res) => {
         )
     })
 }
+getComments = (res) => {
+    r.table('Comments').run(connection, (err, cursor) => {
+        if (err) console.log(err)
+        cursor.toArray(
+            (err, data) => {
+                res.status(200).send(data)
+            }
+        )
+    })
+}
 app.get('/api/getPosts' , (req, res) => {
     getPosts(res)
 })
@@ -118,6 +128,20 @@ app.post('/api/createPost', (req, res) => {
         })
     })
 })
+app.post('/api/addComment', (req, res) => {
+    console.log(req.body)
+    r.table('Comments').insert(req.body)
+    .run(connection, (err, data) => {
+        console.log(data.generated_keys)
+        r.table('Comments').get(data.generated_keys[0])
+        .run(connection, (err, postData) => {
+            console.log(postData)
+            // res.status(200).send(postData)
+            getComments(res)
+        })
+    })
+})
+
 app.delete('/api/deletePost/:id', (req, res) => {
     console.log(req.params)
     r.table('Posts').get(req.params.id).delete().run(connection, (err, data) => {

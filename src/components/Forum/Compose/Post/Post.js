@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {Icon} from 'antd';
+import {Icon, Drawer} from 'antd';
 import './Post.css';
 import {FaComment, FaThumbs_up, FaThumbs_down, FaHeart, FaEnvelope} from 'react-icons/fa';
 import {MdFace, MdSend} from 'react-icons/md';
 import Edit from './Edit/Edit';
+import CommentBox from './Comment/CommentBox.js';
 
 // THIS COMPONENT IS BEING RENDERED IN THE *APP* COMPONENT
 
@@ -43,6 +44,18 @@ class Post extends Component {
       this.setState({ showMasterMenu: false });
     }
   }
+
+showDrawer = () => {
+    console.log("hi");
+    this.setState({
+      visible: true
+    });
+  };
+  onClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
 
   render() {
     const { editing, showMasterMenu } = this.state;
@@ -100,7 +113,8 @@ class Post extends Component {
 
           <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
           
-          <Icon type='message' theme='twoTone' twoToneColor='24C131'/>
+          <button onClick={this.showDrawer}><Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
+          <CommentBox visible={this.state.visible} onClose={this.onClose} />
           </div>
         </div>
 
