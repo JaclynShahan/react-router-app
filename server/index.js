@@ -43,7 +43,7 @@ getPosts = (res) => {
     })
 }
 getComments = (res) => {
-    r.table('Comments').run(connection, (err, cursor) => {
+    r.table('Posts').run(connection, (err, cursor) => {
         if (err) console.log(err)
         cursor.toArray(
             (err, data) => {
@@ -64,7 +64,7 @@ app.get('/api/getUser', (req, res) => {
         cursor.toArray(
             (err, data) => {
                 if(data.length == 0){
-                    res.status(200).send('Not Found');
+                   res.status(200).send('Not Found');
                 } else {
                 res.status(200).send(data)
                 console.log(data)
@@ -90,6 +90,14 @@ app.get('/api/getPosts', (req, res) => {
         )
     })
 })
+
+app.put('/api/makeComment/:id', (req, res) => {
+    console.log(req.params)
+      r.table('Posts').get(req.params.id).update({comments: req.body.comments}).run(connection, (err, data) => {
+      console.log(data)
+      getPosts(res)
+  })
+  })
 
 app.put('/api/updatePost/:id', (req, res) => {
   console.log(req.params)
@@ -128,19 +136,18 @@ app.post('/api/createPost', (req, res) => {
         })
     })
 })
-app.post('/api/addComment', (req, res) => {
-    console.log(req.body)
-    r.table('Comments').insert(req.body)
-    .run(connection, (err, data) => {
-        console.log(data.generated_keys)
-        r.table('Comments').get(data.generated_keys[0])
-        .run(connection, (err, postData) => {
-            console.log(postData)
-            // res.status(200).send(postData)
-            getComments(res)
-        })
-    })
-})
+//app.post('/api/addComment', (req, res) => {
+  //  console.log(req.body)
+    //r.table('Posts').insert(req.body)
+    //.run(connection, (err, data) => {
+      //  console.log(data.generated_keys)
+        //r.table('Posts').get(data.generated_keys[0])
+        //.run(connection, (err, postData) => {
+          //  console.log(postData)
+        //getComments(res)
+       // })
+    //})
+//})
 
 app.delete('/api/deletePost/:id', (req, res) => {
     console.log(req.params)

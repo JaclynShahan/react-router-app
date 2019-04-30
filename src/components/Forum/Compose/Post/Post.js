@@ -5,6 +5,8 @@ import {FaComment, FaThumbs_up, FaThumbs_down, FaHeart, FaEnvelope} from 'react-
 import {MdFace, MdSend} from 'react-icons/md';
 import Edit from './Edit/Edit';
 import CommentBox from './Comment/CommentBox.js';
+import {connect} from 'react-redux';
+import Axios from 'axios';
 
 // THIS COMPONENT IS BEING RENDERED IN THE *APP* COMPONENT
 
@@ -14,7 +16,8 @@ class Post extends Component {
 
     this.state = {
       editing: false,
-      showMasterMenu: false
+      showMasterMenu: false,
+      comments: []
     };
 
     this.hideEdit = this.hideEdit.bind( this );
@@ -56,6 +59,11 @@ showDrawer = () => {
       visible: false
     });
   };
+  updateComment(id, comment) {
+    
+    Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
+  }
+
 
   render() {
     const { editing, showMasterMenu } = this.state;
@@ -114,7 +122,10 @@ showDrawer = () => {
           <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
           
           <button onClick={this.showDrawer}><Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
-          <CommentBox visible={this.state.visible} onClose={this.onClose} />
+          <CommentBox visible={this.state.visible} onClose={this.onClose} 
+           createCommentFn={this.updateComment}/>
+  
+      
           </div>
         </div>
 
@@ -123,4 +134,28 @@ showDrawer = () => {
   }
 }
 
-export default Post;
+//create mapStateToProps function
+const mapStateToProps = state => state;
+//you'll use this to dispatch payloads to redux
+const mapDispatchToProps = dispatch => ({
+  //functions added here will be available on props
+  postAdder(newPost) {
+    //dispatches and object with type and payload
+    //numberAdder seen in props
+    dispatch({
+      type: "ADD_POST", //type is where we send it
+      payload: newPost //payload is the data
+    });
+  },
+  addPost(e) {
+    dispatch({
+      type: "SET_POST",
+      payload: e.target.value
+    });
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Post);

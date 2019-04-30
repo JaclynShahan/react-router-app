@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
       
       this.state = {
         subject: '',
-        text: ''
+        text: '',
       };
   
       this.makePost = this.makePost.bind( this );
@@ -24,10 +24,12 @@ import {connect} from 'react-redux';
     updateText( text ) {
       this.setState({ text });
     }
+    
     clearField = () => {
       this.setState({
         text: "",
-        subject: ""
+        subject: "",
+        comment: ""
       })
     }
     getPost = e => {
@@ -45,6 +47,7 @@ import {connect} from 'react-redux';
       Axios.post("/api/createPost", {
         text: this.state.text,
         subject: this.state.subject,
+        comments: this.state.comment
 
       }).then(resp => {
         this.props.postAdder(resp.data);

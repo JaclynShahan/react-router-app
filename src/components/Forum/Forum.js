@@ -13,7 +13,8 @@ class Forum extends Component {
     constructor() {
         super()
         this.state = {
-            posts: []
+            posts: [],
+            comments: []
         }
        this.updatePost = this.updatePost.bind(this);
         this.onDelete = this.onDelete.bind(this);
@@ -29,6 +30,9 @@ class Forum extends Component {
         //  this.setState({posts: results.data});
         //});
         //}
+      updateComments(id, comment) {
+        Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
+      }
         updatePost(id, text, subject) {          
           Axios.put(`/api/updatePost/${id}`, {text, subject}).then(results => {this.props.postAdder(results.data)})
         }
@@ -62,6 +66,7 @@ const {newPost: posts} = this.props.getPost
                   text={post.text}
                   subject={post.subject}
                   date={post.date}
+                  comment={post.comment}
                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
                   />

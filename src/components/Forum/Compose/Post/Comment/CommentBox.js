@@ -8,9 +8,8 @@ class CommentBox extends Component {
     constructor() {
         super()
         this.state = {
-            comments: [],
             visible: false,
-            text: ""
+            comment: ""
         }
     }
 
@@ -18,26 +17,61 @@ class CommentBox extends Component {
 
   onClear = () => {
     this.setState({
-      text: "",
+      comment: "",
     });
   };
   commentChange = (e, stateProperty) => {
     this.setState({ [stateProperty]: e.target.value });
   };
-  addComment = e => {
+ // addComment = e => {
+   // e.preventDefault();
+    //Axios.post("/api/makeComment", {
+      //text: this.state.text
+    //}).then(resp => {
+      //this.onClear();
+      //this.props.postAdder(resp.data);
+      //console.log(resp);
+    //});
+  //};
+  updateComment( comment ) {
+    this.setState({comment});
+  }
+
+  clearField = () => {
+    this.setState({
+      comment: ""
+    })
+  }
+  getComment = e => {
     e.preventDefault();
-    Axios.post("/api/addComment", {
-      text: this.state.text
-    }).then(resp => {
-      this.onClear();
-      this.props.postAdder(resp.data);
+    Axios.get(
+      `/api/getComment?comment=${this.state.comment}`
+    ).then(resp => {
       console.log(resp);
     });
+
+    this.clearField();
   };
- 
+  makeComment = e  => {
+    e.preventDefault();
+    Axios.post("/api/makeComment", {
+      comment: this.state.comment
+
+    }).then(resp => {
+      this.props.postAdder(resp.data);
+      console.log(resp);
+    })
+   this.clearField()
+  }
+  updateComment(id, comment) {
+    
+    Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
+  }
   
 render() {
+ 
     return (
+    
         <Drawer
         title="Leave a Comment"
         placement="bottom"
@@ -47,15 +81,16 @@ render() {
       >
         <input
           className="Comment_input"
-          value={this.state.text}
-          onChange={e => this.commentChange(e, "text")}
+          value={this.state.comment}
+          onChange={e => this.commentChange(e, "comment")}
         />
-
-      <button onClick={e => this.addComment(e)} 
+       
+      <button onClick={e => this.makeComment(e)} 
           className="signup">
           <Icon type="check" />
           Submit
         </button>
+    
       <button 
         onClick={() => this.props.onClose()}
         type='primary'
@@ -63,10 +98,11 @@ render() {
           <Icon type="close" />
           Cancel
         </button>
+     
       </Drawer>
      
     )
-}
+    }
 }
 //create mapStateToProps function
 const mapStateToProps = state => state;
