@@ -17,7 +17,7 @@ class Post extends Component {
     this.state = {
       editing: false,
       showMasterMenu: false,
-      comments: []
+     comments: []
     };
 
     this.hideEdit = this.hideEdit.bind( this );
@@ -59,15 +59,17 @@ showDrawer = () => {
       visible: false
     });
   };
-  updateComment(id, comment) {
+  //updateComment(id, comment) {
     
-    Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
-  }
-
+   // Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
+  //}
+  updateComments(id, comments) {
+    Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
+}
 
   render() {
     const { editing, showMasterMenu } = this.state;
-    const {text, date, deletePostFn, id, updatePostFn} = this.props;
+    const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     console.log(this.state)
 
     return (
@@ -123,7 +125,7 @@ showDrawer = () => {
           
           <button onClick={this.showDrawer}><Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
           <CommentBox visible={this.state.visible} onClose={this.onClose} 
-           createCommentFn={this.updateComment}/>
+           createCommentFn={this.updateComments}/>
   
       
           </div>
@@ -146,6 +148,12 @@ const mapDispatchToProps = dispatch => ({
       type: "ADD_POST", //type is where we send it
       payload: newPost //payload is the data
     });
+  },
+  commentAdder(newComment) {
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: newComment
+    })
   },
   addPost(e) {
     dispatch({

@@ -1,7 +1,8 @@
 //reducer
 const initialState = {
     //initialize your state
-    newPost: []
+    newPost: [],
+    newComment: []
   };
   
   export default function reducer(state = initialState, action) {

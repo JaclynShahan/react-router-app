@@ -14,7 +14,7 @@ class Forum extends Component {
         super()
         this.state = {
             posts: [],
-            comments: []
+           comments: []
         }
        this.updatePost = this.updatePost.bind(this);
         this.onDelete = this.onDelete.bind(this);
@@ -25,14 +25,9 @@ class Forum extends Component {
       Axios.get('/api/getPosts').then(results => {this.props.postAdder(results.data)})
     }
 
-    //updatePost(id, text) {
-      //axios.put(`/api/updatePosts?id=${id}`, {text}).then(results => {
-        //  this.setState({posts: results.data});
-        //});
-        //}
-      updateComments(id, comment) {
-        Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
-      }
+   //   updateComments(id, comments) {
+     //   Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
+    //}
         updatePost(id, text, subject) {          
           Axios.put(`/api/updatePost/${id}`, {text, subject}).then(results => {this.props.postAdder(results.data)})
         }
@@ -51,6 +46,7 @@ class Forum extends Component {
 render() {
   console.log(this.props)
 const {newPost: posts} = this.props.getPost
+const {newComments: comments} = this. props.getPost
     return (
       <div className="App__parent">
         <Header />
@@ -66,7 +62,7 @@ const {newPost: posts} = this.props.getPost
                   text={post.text}
                   subject={post.subject}
                   date={post.date}
-                  comment={post.comment}
+                comments={post.comments}
                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
                   />
@@ -92,6 +88,7 @@ const mapDispatchToProps = dispatch => ({
       payload: newPost //payload is the data
     });
   },
+
   // addPost(e) {
   //   dispatch({
   //     type: "SET_POST",

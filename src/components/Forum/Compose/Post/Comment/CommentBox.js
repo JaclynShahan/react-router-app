@@ -9,20 +9,23 @@ class CommentBox extends Component {
         super()
         this.state = {
             visible: false,
-            comment: ""
+           // comment: ""
         }
     }
 
+    //updateComent() {
+      //const {text} = this.state;
+     // const {id, updatePostFn, hideEdit, createCommentFn} = this.props;
+      
+     // updatePostFn(id, text);
   
-
-  onClear = () => {
-    this.setState({
-      comment: "",
-    });
-  };
-  commentChange = (e, stateProperty) => {
-    this.setState({ [stateProperty]: e.target.value });
-  };
+ //   }
+    updateComments(id, comments) {
+      Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
+  }
+  //commentChange = (e, stateProperty) => {
+ //   this.setState({ [stateProperty]: e.target.value });
+  //};
  // addComment = e => {
    // e.preventDefault();
     //Axios.post("/api/makeComment", {
@@ -33,43 +36,43 @@ class CommentBox extends Component {
       //console.log(resp);
     //});
   //};
-  updateComment( comment ) {
-    this.setState({comment});
-  }
+ // updateComment( comment ) {
+   // this.setState({comment});
+  //}
 
-  clearField = () => {
-    this.setState({
-      comment: ""
-    })
-  }
-  getComment = e => {
-    e.preventDefault();
-    Axios.get(
-      `/api/getComment?comment=${this.state.comment}`
-    ).then(resp => {
-      console.log(resp);
-    });
+  //clearField = () => {
+    //this.setState({
+      //comment: ""
+    //})
+  //}
+  //getComment = e => {
+    //e.preventDefault();
+    //Axios.get(
+      //`/api/getComment?comment=${this.state.comment}`
+    //).then(resp => {
+      //console.log(resp);
+    //});
 
-    this.clearField();
-  };
-  makeComment = e  => {
-    e.preventDefault();
-    Axios.post("/api/makeComment", {
-      comment: this.state.comment
+    //this.clearField();
+  //};
+  //makeComment = e  => {
+    //e.preventDefault();
+    //Axios.post("/api/makeComment", {
+      //comment: this.state.comment
 
-    }).then(resp => {
-      this.props.postAdder(resp.data);
-      console.log(resp);
-    })
-   this.clearField()
-  }
-  updateComment(id, comment) {
+    //}).then(resp => {
+     // this.props.postAdder(resp.data);
+      //console.log(resp);
+    //})
+   //this.clearField()
+  //}
+ // updateComment(id, comment) {
     
-    Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
-  }
+   // Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
+  //}
   
 render() {
- 
+  const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     return (
     
         <Drawer
@@ -81,11 +84,11 @@ render() {
       >
         <input
           className="Comment_input"
-          value={this.state.comment}
-          onChange={e => this.commentChange(e, "comment")}
+          //value={this.state.comment}
+          //onChange={e => this.commentChange(e, "comment")}
         />
        
-      <button onClick={e => this.makeComment(e)} 
+      <button onClick={ () => this.updateComments()} 
           className="signup">
           <Icon type="check" />
           Submit
@@ -116,6 +119,12 @@ const mapDispatchToProps = dispatch => ({
       type: "ADD_POST", //type is where we send it
       payload: newPost //payload is the data
     });
+  },
+  commentAdder(newComment) {
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: newComment
+    })
   },
   addPost(e) {
     dispatch({

@@ -42,16 +42,16 @@ getPosts = (res) => {
         )
     })
 }
-getComments = (res) => {
-    r.table('Posts').run(connection, (err, cursor) => {
-        if (err) console.log(err)
-        cursor.toArray(
-            (err, data) => {
-                res.status(200).send(data)
-            }
-        )
-    })
-}
+//getComments = (res) => {
+  //  r.table('Posts').run(connection, (err, cursor) => {
+    //    if (err) console.log(err)
+      // cursor.toArray(
+        //    (err, data) => {
+          //      res.status(200).send(data)
+           // }
+       // )
+    //})
+//}
 app.get('/api/getPosts' , (req, res) => {
     getPosts(res)
 })
@@ -92,8 +92,8 @@ app.get('/api/getPosts', (req, res) => {
 })
 
 app.put('/api/makeComment/:id', (req, res) => {
-    console.log(req.params)
-      r.table('Posts').get(req.params.id).update({comments: req.body.comments}).run(connection, (err, data) => {
+   console.log(req.params)
+     r.table('Posts').get(req.params.id).update({comments: req.body.comments}).run(connection, (err, data) => {
       console.log(data)
       getPosts(res)
   })
