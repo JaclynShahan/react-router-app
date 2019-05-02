@@ -103,3 +103,6 @@
     align-content: flex-end;
     width: 15%;
   }
+  .commentButton {
+   align-items: right;
+  }

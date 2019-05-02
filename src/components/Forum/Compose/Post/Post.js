@@ -17,7 +17,7 @@ class Post extends Component {
     this.state = {
       editing: false,
       showMasterMenu: false,
-     comments: []
+    comments: []
     };
 
     this.hideEdit = this.hideEdit.bind( this );
@@ -49,25 +49,26 @@ class Post extends Component {
   }
 
 showDrawer = () => {
-    console.log("hi");
+  console.log("hi");
     this.setState({
       visible: true
     });
   };
-  onClose = () => {
+onClose = () => {
     this.setState({
       visible: false
     });
   };
-  //updateComment(id, comment) {
-    
-   // Axios.put(`/api/makeComment/${id}`, {comment}).then(results => {this.props.postAdder(results.data)})
+  //componentDidMount() {
+    //Axios.get('/api/getComments').then(results => {this.props.commentAdder(results.data)})
   //}
-  updateComments(id, comments) {
-    Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
-}
+
+ //updateComments(id, comments) {
+   //Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
+//}
 
   render() {
+    const {newComments: comments} = this. props.getPost
     const { editing, showMasterMenu } = this.state;
     const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     console.log(this.state)
@@ -96,7 +97,7 @@ showDrawer = () => {
           <span className="Post__name">{this.props.subject}</span>
         {/* <span className="Post__handle">Post Handle</span> */}
 
-          <span className="Post__date">{date}</span>
+          <span className="Post__date">{this.props.date}</span>
         </div>
 
     
@@ -122,12 +123,13 @@ showDrawer = () => {
           <Icon type='meh' theme='twoTone' twoToneColor='#FF4500'/>
 
           <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
-          
+        
           <button onClick={this.showDrawer}><Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
-          <CommentBox visible={this.state.visible} onClose={this.onClose} 
-           createCommentFn={this.updateComments}/>
-  
-      
+          <CommentBox 
+          visible={this.state.visible} 
+          onClose={this.onClose} 
+          updateCommentsFn={this.updateComments}/>
+
           </div>
         </div>
 

@@ -25,9 +25,9 @@ class Forum extends Component {
       Axios.get('/api/getPosts').then(results => {this.props.postAdder(results.data)})
     }
 
-   //   updateComments(id, comments) {
-     //   Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
-    //}
+     updateComments(id, text, comments) {
+       Axios.put(`/api/makeComment/${id}`, {text, comments}).then(results => {this.props.commentAdder(results.data)})
+    }
         updatePost(id, text, subject) {          
           Axios.put(`/api/updatePost/${id}`, {text, subject}).then(results => {this.props.postAdder(results.data)})
         }
@@ -46,7 +46,7 @@ class Forum extends Component {
 render() {
   console.log(this.props)
 const {newPost: posts} = this.props.getPost
-const {newComments: comments} = this. props.getPost
+
     return (
       <div className="App__parent">
         <Header />
@@ -65,11 +65,14 @@ const {newComments: comments} = this. props.getPost
                 comments={post.comments}
                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
+                  updateCommentsFn={this.updateComments}
                   />
 
               ))
           }
+          
         </section>
+
       </div>
     );
   }
@@ -88,7 +91,12 @@ const mapDispatchToProps = dispatch => ({
       payload: newPost //payload is the data
     });
   },
-
+  commentAdder(newComment) {
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: newComment
+    })
+  },
   // addPost(e) {
   //   dispatch({
   //     type: "SET_POST",

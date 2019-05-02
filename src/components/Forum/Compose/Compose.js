@@ -11,13 +11,16 @@ import {connect} from 'react-redux';
       super();
       
       this.state = {
+       
         subject: '',
         text: '',
-        //commments: []
+        commments: [],
+        date: ''
       };
   
       this.makePost = this.makePost.bind( this );
     }
+
     updateSubject( subject ) {
       this.setState({ subject });
     }
@@ -25,12 +28,16 @@ import {connect} from 'react-redux';
     updateText( text ) {
       this.setState({ text });
     }
-    
+    updateDate( date ) {
+      this.setState({ date });
+    }
+
     clearField = () => {
       this.setState({
         text: "",
         subject: "",
-        comment: ""
+        comment: "",
+        date: ""
       })
     }
     getPost = e => {
@@ -48,7 +55,7 @@ import {connect} from 'react-redux';
       Axios.post("/api/createPost", {
         text: this.state.text,
         subject: this.state.subject,
-       // comments: this.state.comment
+         //comments: this.state.comments
 
       }).then(resp => {
         this.props.postAdder(resp.data);
@@ -56,7 +63,7 @@ import {connect} from 'react-redux';
       })
      this.clearField()
     }
-
+  
    
     render() {
       // Destructuring
@@ -88,6 +95,7 @@ import {connect} from 'react-redux';
             <button className='Compose_button' onClick={e => this.makePost(e) }>Update</button>
           </div>
         </section>
+        
       )
     }
 }
@@ -105,6 +113,12 @@ const mapDispatchToProps = dispatch => ({
       type: "ADD_POST", //type is where we send it
       payload: newPost //payload is the data
     });
+  },
+  commentAdder(newComment) {
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: newComment
+    })
   },
   addPost(e) {
     dispatch({
