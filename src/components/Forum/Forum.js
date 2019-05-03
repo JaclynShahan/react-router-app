@@ -14,7 +14,7 @@ class Forum extends Component {
         super()
         this.state = {
             posts: [],
-           comments: []
+         //  comments: []
         }
        this.updatePost = this.updatePost.bind(this);
         this.onDelete = this.onDelete.bind(this);
@@ -25,9 +25,9 @@ class Forum extends Component {
       Axios.get('/api/getPosts').then(results => {this.props.postAdder(results.data)})
     }
 
-     updateComments(id, text, comments) {
-       Axios.put(`/api/makeComment/${id}`, {text, comments}).then(results => {this.props.commentAdder(results.data)})
-    }
+    // updateComments(id, text, comments) {
+      // Axios.put(`/api/makeComment/${id}`, {text, comments}).then(results => {this.props.commentAdder(results.data)})
+    //}
         updatePost(id, text, subject) {          
           Axios.put(`/api/updatePost/${id}`, {text, subject}).then(results => {this.props.postAdder(results.data)})
         }
@@ -62,15 +62,15 @@ const {newPost: posts} = this.props.getPost
                   text={post.text}
                   subject={post.subject}
                   date={post.date}
-                comments={post.comments}
+               // comments={post.comments}
                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
-                  updateCommentsFn={this.updateComments}
+                //  updateCommentsFn={this.updateComments}
                   />
 
               ))
           }
-          
+
         </section>
 
       </div>

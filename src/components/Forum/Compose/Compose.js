@@ -14,7 +14,7 @@ import {connect} from 'react-redux';
        
         subject: '',
         text: '',
-        commments: [],
+       // commments: [],
         date: ''
       };
   
@@ -36,7 +36,7 @@ import {connect} from 'react-redux';
       this.setState({
         text: "",
         subject: "",
-        comment: "",
+       // comment: "",
         date: ""
       })
     }

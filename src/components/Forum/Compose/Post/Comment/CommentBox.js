@@ -9,12 +9,12 @@ class CommentBox extends Component {
         super()
         this.state = {
            // visible: false,
-           comments: []
+        //   comments: []
         }
     }
-    componentDidMount() {
-      Axios.get('/api/getComments').then(results => {this.props.commentAdder(results.data)})
-    }
+   // componentDidMount() {
+     // Axios.get('/api/getComments').then(results => {this.props.commentAdder(results.data)})
+   // }
     //updateComent() {
       //const {text} = this.state;
      // const {id, updatePostFn, hideEdit, createCommentFn} = this.props;
@@ -22,31 +22,31 @@ class CommentBox extends Component {
      // updatePostFn(id, text);
   
  //   }
-   updateComments(id, comments) {
-     Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
- }
- makeComment = e  => {
-   e.preventDefault();
-    Axios.post("/api/createComment", {
+   //updateComments(id, comments) {
+     //Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
+ //}
+ //makeComment = e  => {
+   //e.preventDefault();
+    //Axios.post("/api/createComment", {
 
-      comments: this.state.comments
+      //comments: this.state.comments
 
-    }).then(resp => {
-      this.props.commentAdder(resp.data);
-      console.log(resp);
-    })
-   this.clearField()
-  }
-  commentChange = (e, stateProperty) => {
-   this.setState({ [stateProperty]: e.target.value });
-  };
+    //}).then(resp => {
+      //this.props.commentAdder(resp.data);
+      //console.log(resp);
+    //})
+   //this.clearField()
+  //}
+  //commentChange = (e, stateProperty) => {
+   //this.setState({ [stateProperty]: e.target.value });
+  //};
 
 
-  clearField = () => {
-    this.setState({
-      comments: []
-    })
-  }
+  //clearField = () => {
+    //this.setState({
+     // comments: []
+   // })
+ // }
   
   
 render() {

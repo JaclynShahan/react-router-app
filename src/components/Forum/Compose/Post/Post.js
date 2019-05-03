@@ -17,7 +17,7 @@ class Post extends Component {
     this.state = {
       editing: false,
       showMasterMenu: false,
-    comments: []
+    //comments: []
     };
 
     this.hideEdit = this.hideEdit.bind( this );
@@ -68,7 +68,7 @@ onClose = () => {
 //}
 
   render() {
-    const {newComments: comments} = this. props.getPost
+   // const {newComments: comments} = this. props.getPost
     const { editing, showMasterMenu } = this.state;
     const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     console.log(this.state)
@@ -137,35 +137,35 @@ onClose = () => {
     )
   }
 }
-
+export default Post;
 //create mapStateToProps function
-const mapStateToProps = state => state;
+//const mapStateToProps = state => state;
 //you'll use this to dispatch payloads to redux
-const mapDispatchToProps = dispatch => ({
+//const mapDispatchToProps = dispatch => ({
   //functions added here will be available on props
-  postAdder(newPost) {
+  //postAdder(newPost) {
     //dispatches and object with type and payload
     //numberAdder seen in props
-    dispatch({
-      type: "ADD_POST", //type is where we send it
-      payload: newPost //payload is the data
-    });
-  },
-  commentAdder(newComment) {
-    dispatch({
-      type: "ADD_COMMENT",
-      payload: newComment
-    })
-  },
-  addPost(e) {
-    dispatch({
-      type: "SET_POST",
-      payload: e.target.value
-    });
-  }
-});
+    //dispatch({
+      //type: "ADD_POST", //type is where we send it
+     // payload: newPost //payload is the data
+    //});
+  //},
+  //commentAdder(newComment) {
+    //dispatch({
+      //type: "ADD_COMMENT",
+    //  payload: newComment
+    //})
+  //},
+  //addPost(e) {
+    //dispatch({
+      //type: "SET_POST",
+      //payload: e.target.value
+    //});
+ // }
+//});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-  )(Post);
+//export default connect(
+  //mapStateToProps,
+  //mapDispatchToProps
+  //)(Post);

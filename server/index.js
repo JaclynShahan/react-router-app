@@ -91,31 +91,31 @@ app.get('/api/getPosts', (req, res) => {
         )
     })
 })
-app.get('/api/getComments', (req, res) => {
-    console.log(req.query)
-     r.table('Posts').filter(function (post) {
-      return post("comments").eq(req.query.posts.comments);
-     }).run(connection, (err, cursor) => {
-         if (err) console.log(err)
-         cursor.toArray(
-             (err, data) => {
-                if(data.length == 0) {
-                     res.status(200).send('Not Found');
-                 } else {
-                   res.status(200).send(data)
-                     console.log(data)
-                 }
-             }
-         )
-     })
- })
-app.put('/api/makeComment/:id', (req, res) => {
-   console.log(req.params)
-     r.table('Posts').get(req.params.post.id).update({comments: req.body.post.comments}).run(connection, (err, data) => {
-      console.log(data)
-      getPosts(res)
-  })
-  })
+//app.get('/api/getComments', (req, res) => {
+  //  console.log(req.query)
+    // r.table('Posts').filter(function (post) {
+      //return post("comments").eq(req.query.posts.comments);
+     //}).run(connection, (err, cursor) => {
+       //  if (err) console.log(err)
+         //cursor.toArray(
+           //  (err, data) => {
+             //   if(data.length == 0) {
+               //      res.status(200).send('Not Found');
+                 //} else {
+                   //res.status(200).send(data)
+                     //console.log(data)
+                 //}
+            // }
+        // )
+     //})
+ //})
+//app.put('/api/makeComment/:id', (req, res) => {
+  // console.log(req.params)
+    // r.table('Posts').get(req.params.post.id).update({comments: req.body.post.comments}).run(connection, (err, data) => {
+      //console.log(data)
+      //getPosts(res)
+  //})
+  //})
 
 app.put('/api/updatePost/:id', (req, res) => {
   console.log(req.params)
@@ -154,18 +154,18 @@ app.post('/api/createPost', (req, res) => {
         })
     })
 })
-app.post('/api/createComment', (req, res) => {
-    console.log(req.body)
-    r.table('Posts').insert(req.body)
-    .run(connection, (err, data) => {
-        console.log(data.generated_keys)
-        r.table('Posts').get(data.generated_keys[0])
-        .run(connection, (err, postData) => {
-            console.log(postData)
-        getPosts(res)
-        })
-    })
-})
+//app.post('/api/createComment', (req, res) => {
+  //  console.log(req.body)
+    //r.table('Posts').insert(req.body)
+    //.run(connection, (err, data) => {
+      //  console.log(data.generated_keys)
+        //r.table('Posts').get(data.generated_keys[0])
+        //.run(connection, (err, postData) => {
+          //  console.log(postData)
+        //getPosts(res)
+        //})
+    //})
+//})
 
 app.delete('/api/deletePost/:id', (req, res) => {
     console.log(req.params)
