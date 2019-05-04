@@ -11,7 +11,6 @@ import {connect} from 'react-redux';
       super();
       
       this.state = {
-       
         subject: '',
         text: '',
        // commments: [],
@@ -55,7 +54,10 @@ import {connect} from 'react-redux';
       Axios.post("/api/createPost", {
         text: this.state.text,
         subject: this.state.subject,
-         //comments: this.state.comments
+        comments: [],
+        likes: [],
+        mehs: [],
+        dislikes: []
 
       }).then(resp => {
         this.props.postAdder(resp.data);
@@ -114,10 +116,10 @@ const mapDispatchToProps = dispatch => ({
       payload: newPost //payload is the data
     });
   },
-  commentAdder(newComment) {
+  setSelectedPost(selectedPost) {
     dispatch({
-      type: "ADD_COMMENT",
-      payload: newComment
+      type: "SELECT_POST",
+      payload: selectedPost
     })
   },
   addPost(e) {

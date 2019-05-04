@@ -22,9 +22,9 @@ class CommentBox extends Component {
      // updatePostFn(id, text);
   
  //   }
-   //updateComments(id, comments) {
-     //Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
- //}
+   updateComments(id, comments) {
+     Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.selectedPost(results.data)})
+}
  //makeComment = e  => {
    //e.preventDefault();
     //Axios.post("/api/createComment", {
@@ -37,9 +37,9 @@ class CommentBox extends Component {
     //})
    //this.clearField()
   //}
-  //commentChange = (e, stateProperty) => {
-   //this.setState({ [stateProperty]: e.target.value });
-  //};
+  commentChange = (e, stateProperty) => {
+   this.setState({ [stateProperty]: e.target.value });
+  };
 
 
   //clearField = () => {
@@ -65,13 +65,13 @@ render() {
           value={this.state.comments}
           onChange={e => this.commentChange(e, "comments")}
         />
-       
-      <button onClick={ (e) => this.makeComment(e)} 
+    
+      <button onClick={ (e) => this.commentAdder(e)} 
           className="signup">
           <Icon type="check" />
           Submit
         </button>
-    
+       
       <button 
         onClick={() => this.props.onClose()}
         type='primary'
@@ -98,10 +98,10 @@ const mapDispatchToProps = dispatch => ({
       payload: newPost //payload is the data
     });
   },
-  commentAdder(newComment) {
+  setSelectedPost(selectedPost) {
     dispatch({
-      type: "ADD_COMMENT",
-      payload: newComment
+      type: "SELECT_POST",
+      payload: selectedPost
     })
   },
   addPost(e) {

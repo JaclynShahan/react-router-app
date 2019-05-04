@@ -13,7 +13,7 @@ class Forum extends Component {
     constructor() {
         super()
         this.state = {
-            posts: [],
+          posts: []
          //  comments: []
         }
        this.updatePost = this.updatePost.bind(this);
@@ -62,11 +62,11 @@ const {newPost: posts} = this.props.getPost
                   text={post.text}
                   subject={post.subject}
                   date={post.date}
-               // comments={post.comments}
                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
-                //  updateCommentsFn={this.updateComments}
+                  post={post}
                   />
+             
 
               ))
           }
@@ -91,10 +91,10 @@ const mapDispatchToProps = dispatch => ({
       payload: newPost //payload is the data
     });
   },
-  commentAdder(newComment) {
+  setSelectedPost(selectedPost) {
     dispatch({
-      type: "ADD_COMMENT",
-      payload: newComment
+      type: "SELECT_POST",
+      payload: selectedPost
     })
   },
   // addPost(e) {

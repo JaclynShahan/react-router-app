@@ -2,7 +2,7 @@
 const initialState = {
     //initialize your state
     newPost: [],
-    newComment: []
+    selectedPost: []
   };
   
   export default function reducer(state = initialState, action) {
@@ -17,6 +17,8 @@ const initialState = {
    // return state;
     case "ADD_COMMENT":
     return { ...state, newComment: action.payload };
+    case "SELECT_POST":
+    return {...state, selectedPost: action.payload}
 
      default:
      return state;}

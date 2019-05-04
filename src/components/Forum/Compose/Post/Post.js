@@ -47,18 +47,17 @@ class Post extends Component {
       this.setState({ showMasterMenu: false });
     }
   }
-
-showDrawer = () => {
-  console.log("hi");
-    this.setState({
-      visible: true
-    });
-  };
 onClose = () => {
     this.setState({
       visible: false
     });
   };
+  setSelectedPost = () => {
+    this.props.setSelectedPost(this.props.post)
+    this.setState({
+      visible: true
+    })
+  }
   //componentDidMount() {
     //Axios.get('/api/getComments').then(results => {this.props.commentAdder(results.data)})
   //}
@@ -72,7 +71,7 @@ onClose = () => {
     const { editing, showMasterMenu } = this.state;
     const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     console.log(this.state)
-
+    console.log(this.props)
     return (
       // Main body of post
       <section className="Post__parent" onClick={ this.hideMasterMenu }>
@@ -124,11 +123,15 @@ onClose = () => {
 
           <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
         
-          <button onClick={this.showDrawer}><Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
+          <button
+                onClick= {() => this.setSelectedPost()}
+                >
+          <Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
           <CommentBox 
           visible={this.state.visible} 
           onClose={this.onClose} 
-          updateCommentsFn={this.updateComments}/>
+          updateCommentsFn={this.updateComments}
+          />
 
           </div>
         </div>
@@ -137,35 +140,35 @@ onClose = () => {
     )
   }
 }
-export default Post;
+
 //create mapStateToProps function
-//const mapStateToProps = state => state;
+const mapStateToProps = state => state;
 //you'll use this to dispatch payloads to redux
-//const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   //functions added here will be available on props
-  //postAdder(newPost) {
+  postAdder(newPost) {
     //dispatches and object with type and payload
     //numberAdder seen in props
-    //dispatch({
-      //type: "ADD_POST", //type is where we send it
-     // payload: newPost //payload is the data
-    //});
-  //},
-  //commentAdder(newComment) {
-    //dispatch({
-      //type: "ADD_COMMENT",
-    //  payload: newComment
-    //})
-  //},
-  //addPost(e) {
-    //dispatch({
-      //type: "SET_POST",
-      //payload: e.target.value
-    //});
- // }
-//});
+    dispatch({
+      type: "ADD_POST", //type is where we send it
+      payload: newPost //payload is the data
+    });
+  },
+  setSelectedPost(selectedPost) {
+    dispatch({
+      type: "SELECT_POST",
+     payload: selectedPost
+    })
+  },
+  addPost(e) {
+    dispatch({
+      type: "SET_POST",
+      payload: e.target.value
+    });
+  }
+});
 
-//export default connect(
-  //mapStateToProps,
-  //mapDispatchToProps
-  //)(Post);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Post);
