@@ -109,12 +109,14 @@ app.get('/api/getPosts', (req, res) => {
         // )
      //})
  //})
-app.put('/api/makeComment/:id', (req, res) => {
+app.post('/api/makeComment/:id', (req, res) => {
    console.log(req.params)
-     r.table('Posts').get(req.params.id).update({comments: req.body.comments}).run(connection, (err, data) => {
+     r.table('Posts').get(req.params.id).update({comments: req.body.commentsArr}).run(connection, (err, data) => {
       console.log(data)
       getPosts(res)
   })
+//   r.table('Posts')
+//   res.status(200).send(data)
   })
 
 app.put('/api/updatePost/:id', (req, res) => {

@@ -67,7 +67,7 @@ onClose = () => {
 //}
 
   render() {
-   // const {newComments: comments} = this. props.getPost
+    const { comments } = this.props.getPost.selectedPost
     const { editing, showMasterMenu } = this.state;
     const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     console.log(this.state)
@@ -122,17 +122,19 @@ onClose = () => {
           <Icon type='meh' theme='twoTone' twoToneColor='#FF4500'/>
 
           <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
+      
         
           <button
                 onClick= {() => this.setSelectedPost()}
                 >
           <Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
+          
           <CommentBox 
           visible={this.state.visible} 
           onClose={this.onClose} 
-          updateCommentsFn={this.updateComments}
+          updateCommentsFn={this.props.updateComments}
           />
-
+        
           </div>
         </div>
 

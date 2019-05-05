@@ -2,11 +2,14 @@
 const initialState = {
   //initialize your state
   newUser: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    createUsername: "",
-    createPassword: ""
+    
+      createPassword:  "Poop" ,
+      createUsername:  "Jaclyn" ,
+      email: "Jaclyndshahan@gmail.com",
+      firstName:  "Jaclyn",
+       id:  "50192375-edea-4e43-b861-52dc17bfb389" ,
+      lastName:  "Shahan"
+      
   }
 };
 

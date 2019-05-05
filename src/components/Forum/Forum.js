@@ -69,7 +69,9 @@ const {newPost: posts} = this.props.getPost
              
 
               ))
+          
           }
+     
 
         </section>
 

@@ -1,8 +1,8 @@
 //reducer
 const initialState = {
     //initialize your state
-    newPost: [],
-    selectedPost: []
+    newPost: [], //this is actually my array of posts, all of them.
+    selectedPost:  {} // this is my selected Post, that I'm going to leave a comment for.
   };
   
   export default function reducer(state = initialState, action) {

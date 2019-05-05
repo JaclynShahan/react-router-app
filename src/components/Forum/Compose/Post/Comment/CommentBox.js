@@ -9,7 +9,7 @@ class CommentBox extends Component {
         super()
         this.state = {
            // visible: false,
-        //   comments: []
+        commentText: ""
         }
     }
    // componentDidMount() {
@@ -23,8 +23,25 @@ class CommentBox extends Component {
   
  //   }
    updateComments(id, comments) {
-     Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.selectedPost(results.data)})
+    //  console.log(id, comments)
+     const newComments = comments
+     newComments.push({
+       userName: this.props.setUser.newUser.createUsername,
+       userId: this.props.setUser.newUser.id,
+       commentText: this.state.commentText
+     })
+     Axios.post(`/api/makeComment/${id}`, {
+       postId: this.props.getPost.selectedPost.id,
+       commentsArr: newComments
+    }).then(resp => {
+      console.log(resp)
+      this.props.postAdder(resp.data)
+      // this.props.selectedPost(resp.data)
+    })
+   
+    this.emptyInput()
 }
+
  //makeComment = e  => {
    //e.preventDefault();
     //Axios.post("/api/createComment", {
@@ -37,19 +54,22 @@ class CommentBox extends Component {
     //})
    //this.clearField()
   //}
-  commentChange = (e, stateProperty) => {
-   this.setState({ [stateProperty]: e.target.value });
-  };
+ 
+  updateCommentText( commentText ) {
+    this.setState({ commentText });
+  }
 
 
-  //clearField = () => {
-    //this.setState({
-     // comments: []
-   // })
- // }
+  emptyInput = () => {
+    this.setState({
+      commentText: ""
+    })
+  }
   
   
 render() {
+  const {selectedPost} = this.props.getPost
+  const comments = selectedPost.comments || []
   const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     return (
     
@@ -62,11 +82,19 @@ render() {
       >
         <input
           className="Comment_input"
-          value={this.state.comments}
-          onChange={e => this.commentChange(e, "comments")}
+          value={this.state.commentText}
+          onChange={e => this.updateCommentText(e.target.value)}
         />
+        {
+          comments.map(comment => (
+            <div>
+              <span>{comment.userName}</span>
+              {comment.commentText}
+            </div>
+        ))
+        }
     
-      <button onClick={ (e) => this.commentAdder(e)} 
+      <button onClick={ () => this.updateComments(selectedPost.id, comments)} 
           className="signup">
           <Icon type="check" />
           Submit
