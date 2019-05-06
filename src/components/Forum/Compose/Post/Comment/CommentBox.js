@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Drawer, Icon } from 'antd';
+import { Drawer, Icon, List, Avatar } from 'antd';
 import {connect} from 'react-redux';
 import Axios from 'axios';
-
+import './CommentBox.css';
+import {MdFace} from 'react-icons/md';
 
 class CommentBox extends Component {
     constructor() {
@@ -74,25 +75,42 @@ render() {
     return (
     
         <Drawer
+        className="Comment_header"
         title="Leave a Comment"
         placement="bottom"
         closable={false}
         onClose={this.props.onClose}
         visible={this.props.visible}
+        height="80vh"
       >
+      <section className="Comment_content">
         <input
           className="Comment_input"
           value={this.state.commentText}
           onChange={e => this.updateCommentText(e.target.value)}
         />
         {
-          comments.map(comment => (
-            <div>
-              <span>{comment.userName}</span>
-              {comment.commentText}
-            </div>
-        ))
+       //   comments.map(comment => (
+         //   <div>
+           //   <span>{comment.userName}</span>
+             // {comment.commentText}
+            //</div>
+        //))
         }
+         <List
+          itemLayout="horizontal"
+          dataSource={comments}
+          renderItem={item => (
+         <List.Item>
+         <List.Item.Meta
+          
+        avatar={<Avatar src="https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png" />}
+          title={item.userName}
+          description={item.commentText}
+        />
+      </List.Item>
+    )}
+  />
     
       <button onClick={ () => this.updateComments(selectedPost.id, comments)} 
           className="signup">
@@ -107,7 +125,7 @@ render() {
           <Icon type="close" />
           Cancel
         </button>
-     
+     </section>
       </Drawer>
      
     )

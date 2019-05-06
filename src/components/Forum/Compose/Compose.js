@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon } from 'antd';
+import { Avatar, Icon} from 'antd';
 import './Compose.css';
 import Axios from 'axios';
 import {connect} from 'react-redux';
@@ -77,7 +77,7 @@ import {connect} from 'react-redux';
           <div className="Compose__top">
   
             <div className="Compose__profile-picture">
-              <Icon type='robot'/>
+            <Avatar src="https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png"/>
             </div>
             <input
             className="Subject__input"

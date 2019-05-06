@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Icon, Drawer} from 'antd';
+import {Icon, Drawer, Avatar} from 'antd';
 import './Post.css';
 import {FaComment, FaThumbs_up, FaThumbs_down, FaHeart, FaEnvelope} from 'react-icons/fa';
 import {MdFace, MdSend} from 'react-icons/md';
@@ -90,7 +90,7 @@ onClose = () => {
        
         <div className="Post__meta-data">
           <div className="Post__profile-picture">
-            <MdFace />
+          <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
           </div>
 
           <span className="Post__name">{this.props.subject}</span>
@@ -129,7 +129,7 @@ onClose = () => {
                 >
           <Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
           
-          <CommentBox 
+          <CommentBox className="Comment_input"
           visible={this.state.visible} 
           onClose={this.onClose} 
           updateCommentsFn={this.props.updateComments}
