@@ -107,4 +107,14 @@
    align-items: right;
   }
 
- 
+  .Comment_input {
+    border-radius: 5px;
+    border: 1px solid #2aabe2;
+    padding: 8px;
+    width: 35vw;
+    height: 4vh;
+    outline: none;
+    float: right;
+    position: relative;
+    box-align: right;
+  } 

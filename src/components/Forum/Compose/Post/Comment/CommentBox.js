@@ -71,7 +71,7 @@ class CommentBox extends Component {
 render() {
   const {selectedPost} = this.props.getPost
   const comments = selectedPost.comments || []
-  const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
+  //const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     return (
     
         <Drawer

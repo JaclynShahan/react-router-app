@@ -18,6 +18,8 @@ class Post extends Component {
       editing: false,
       showMasterMenu: false,
       postLikes: [],
+      postMehs: [],
+      postDislikes: [],
       count: 0,
       show: true
 
@@ -85,8 +87,44 @@ updateLikes(id, likes) {
  this.increaseBadge();
 }
 
+updateMehs(id, mehs) {
+  //  console.log(id, comments)
+   const newMehs = mehs
+   newMehs.push(this.props.setUser.newUser.id)
+   Axios.post(`/api/leaveMehs/${id}`, {
+    //  postId: this.props.getPost.selectedPost.id,
+     mehsArr: newMehs
+  }).then(resp => {
+    console.log(resp)
+    this.props.postAdder(resp.data)
+    // this.props.selectedPost(resp.data)
+  })
+ this.updatePostMehs();
+ this.increaseBadge();
+}
+
+updateDislikes(id, dislikes) {
+  //  console.log(id, comments)
+   const newDislikes = dislikes
+   newDislikes.push(this.props.setUser.newUser.id)
+   Axios.post(`/api/leaveDislikes/${id}`, {
+    //  postId: this.props.getPost.selectedPost.id,
+     DislikesArr: newDislikes
+  }).then(resp => {
+    console.log(resp)
+    this.props.postAdder(resp.data)
+    // this.props.selectedPost(resp.data)
+  })
+ this.updatePostDislikes();
+ this.increaseBadge();
+}
+
 updatePostLikes(postLikes) {
   this.setState({postLikes})
+}
+
+updatePostMehs(postMehs) {
+  this.setState({postMehs})
 }
 
 increaseBadge = () => {
@@ -178,11 +216,45 @@ onChange = (show) => {
               // </Button>
          }
         </Badge>
-          <Icon type='meh' theme='twoTone' twoToneColor='#FF4500'/>
-
-          <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
-      
-        
+        <Badge count={this.props.post.mehs.length}>
+        {
+          this.props.post.mehs.includes(this.props.setUser.newUser.id) ? 
+          <Icon
+          type='meh'
+          theme='twoTone'
+          twoToneColor='#FF4500'
+          style={{ fontSize: '28px'}}
+          />
+          :
+          <Icon
+          onClick={() => this.updateMehs(this.props.post.id, this.props.post.mehs)}
+          type='meh'
+          theme='twoTone'
+          twoToneColor='#FF4500'
+          style={{ fontSize: '28px'}}
+          />
+        }
+        </Badge>
+        <Badge count={this.props.post.dislikes.length}>
+        {
+          this.props.post.dislikes.includes(this.props.setUser.newUser.id) ?
+          <Icon
+          type='frown'
+          theme='twoTone'
+          twoToneColor='#245EC1'
+          style={{ fontSize: '28px'}}
+          />
+          :
+          <Icon
+          onClick={() => this.updateDislikes(this.props.post.id, this.props.post.dislikes)}
+          type='frown'
+          theme='twoTone'
+          twoToneColor='#245EC1'
+          style={{ fontSize: '28px'}}
+          />
+        }
+        </Badge>
+         <Badge count={this.props.post.comments.length}>
           <Icon 
           onClick= {() => this.setSelectedPost()}
           type='message' 
@@ -190,7 +262,13 @@ onChange = (show) => {
           twoToneColor='24C131'
           style={{ fontSize: '28px'}}
           />
-          
+          </Badge>
+        <input
+        placeholder='Leave a Comment...'
+          className="Comment_input"
+          value={this.state.commentText}
+          onChange={e => this.updateCommentText(e.target.value)}
+        />
           <CommentBox className="Comment_input"
           visible={this.state.visible} 
           onClose={this.onClose} 

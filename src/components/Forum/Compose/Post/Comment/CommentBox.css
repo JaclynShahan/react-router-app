@@ -25,13 +25,7 @@
       border: none;
   
   }
-  .Comment_input {
-    border-radius: 5px;
-    border: 1px solid #2aabe2;
-    padding: 8px;
-    width: 80vw;
-    outline: none;
-  } 
+
 
   .Comment_header {
     width: 100%;

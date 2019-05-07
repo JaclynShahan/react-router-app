@@ -127,6 +127,24 @@ app.post('/api/makeComment/:id', (req, res) => {
  
    })
 
+   app.post('/api/leaveMehs/:id', (req, res) => {
+    console.log(req.params)
+      r.table('Posts').get(req.params.id).update({mehs: req.body.mehsArr}).run(connection, (err, data) => {
+       console.log(data)
+       getPosts(res)
+   })
+ 
+   })
+
+   app.post('/api/leaveDislikes/:id', (req, res) => {
+    console.log(req.params)
+      r.table('Posts').get(req.params.id).update({dislikes: req.body.dislikesArr}).run(connection, (err, data) => {
+       console.log(data)
+       getPosts(res)
+   })
+ 
+   }) 
+
 app.put('/api/updatePost/:id', (req, res) => {
   console.log(req.params)
     r.table('Posts').get(req.params.id).update({text: req.body.text}).run(connection, (err, data) => {
