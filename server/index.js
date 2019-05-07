@@ -118,6 +118,14 @@ app.post('/api/makeComment/:id', (req, res) => {
 //   r.table('Posts')
 //   res.status(200).send(data)
   })
+  app.post('/api/leaveLikes/:id', (req, res) => {
+    console.log(req.params)
+      r.table('Posts').get(req.params.id).update({likes: req.body.likesArr}).run(connection, (err, data) => {
+       console.log(data)
+       getPosts(res)
+   })
+ 
+   })
 
 app.put('/api/updatePost/:id', (req, res) => {
   console.log(req.params)

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Icon, Drawer, Avatar} from 'antd';
+import {Icon, Drawer, Avatar, Badge, Button} from 'antd';
 import './Post.css';
-import {FaComment, FaThumbs_up, FaThumbs_down, FaHeart, FaEnvelope} from 'react-icons/fa';
-import {MdFace, MdSend} from 'react-icons/md';
+//import {FaComment, FaThumbs_up, FaThumbs_down, FaHeart, FaEnvelope} from 'react-icons/fa';
+//import {MdFace, MdSend} from 'react-icons/md';
 import Edit from './Edit/Edit';
 import CommentBox from './Comment/CommentBox.js';
 import {connect} from 'react-redux';
@@ -17,7 +17,10 @@ class Post extends Component {
     this.state = {
       editing: false,
       showMasterMenu: false,
-    //comments: []
+      postLikes: [],
+      count: 0,
+      show: true
+
     };
 
     this.hideEdit = this.hideEdit.bind( this );
@@ -66,8 +69,41 @@ onClose = () => {
    //Axios.put(`/api/makeComment/${id}`, {comments}).then(results => {this.props.commentAdder(results.data)})
 //}
 
+updateLikes(id, likes) {
+  //  console.log(id, comments)
+   const newLikes = likes
+   newLikes.push(this.props.setUser.newUser.id)
+   Axios.post(`/api/leaveLikes/${id}`, {
+    //  postId: this.props.getPost.selectedPost.id,
+     likesArr: newLikes
+  }).then(resp => {
+    console.log(resp)
+    this.props.postAdder(resp.data)
+    // this.props.selectedPost(resp.data)
+  })
+ this.updatePostLikes();
+ this.increaseBadge();
+}
+
+updatePostLikes(postLikes) {
+  this.setState({postLikes})
+}
+
+increaseBadge = () => {
+  const count = this.state.count + 1;
+  this.setState({ count });
+}
+
+onChange = (show) => {
+  this.setState({ show });
+}
+
+
+
   render() {
-    const { comments } = this.props.getPost.selectedPost
+    const {selectedPost} = this.props.getPost
+    const likes = selectedPost.likes || []
+    //const { comments } = this.props.getPost.selectedPost
     const { editing, showMasterMenu } = this.state;
     const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     console.log(this.state)
@@ -76,11 +112,11 @@ onClose = () => {
       // Main body of post
       <section className="Post__parent" onClick={ this.hideMasterMenu }>
 
-        {/* Three dots in top right corner */}
+        
         <div className="Post__master-controls">
           <button onClick={ this.toggleMasterMenu }><Icon type='edit'/></button>
 
-          {/* Drop-down menu. Remember that the "showMasterMenu" variable has been destructured off of this.state */}
+       
           <div className="Post__master-menu" style={ { display: showMasterMenu ? 'flex' : 'none' } }>
             <span onClick={ this.showEdit }>Edit</span>
             <span onClick= {() => deletePostFn(id)}>Delete</span>
@@ -117,17 +153,43 @@ onClose = () => {
         
         <div className="Post__user-controls">
         <div className='icons'>
-          <Icon type='smile' theme='twoTone' twoToneColor='#DC143C' />
-         
+        <Badge count={this.props.post.likes.length}>
+        {
+          this.props.post.likes.includes(this.props.setUser.newUser.id) ? 
+          // <Button>
+            <Icon 
+              type='smile' 
+              theme='twoTone' 
+              twoToneColor='#DC143C' 
+              style={{ fontSize: '28px'}}
+           /> 
+          // </Button>
+           : 
+          //  <Button 
+          //     icon='smile'
+          //     >
+           <Icon 
+              onClick={() => this.updateLikes(this.props.post.id, this.props.post.likes)}
+              type='smile' 
+              theme='twoTone' 
+              twoToneColor='#DC143C' 
+              style={{ fontSize: '28px'}}
+            />
+              // </Button>
+         }
+        </Badge>
           <Icon type='meh' theme='twoTone' twoToneColor='#FF4500'/>
 
           <Icon type='frown' theme='twoTone' twoToneColor='#245EC1'/>
       
         
-          <button
-                onClick= {() => this.setSelectedPost()}
-                >
-          <Icon type='message' theme='twoTone' twoToneColor='24C131'/></button>
+          <Icon 
+          onClick= {() => this.setSelectedPost()}
+          type='message' 
+          theme='twoTone' 
+          twoToneColor='24C131'
+          style={{ fontSize: '28px'}}
+          />
           
           <CommentBox className="Comment_input"
           visible={this.state.visible} 

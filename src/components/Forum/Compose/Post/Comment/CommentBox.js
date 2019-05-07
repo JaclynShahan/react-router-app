@@ -75,7 +75,6 @@ render() {
     return (
     
         <Drawer
-        className="Comment_header"
         title="Leave a Comment"
         placement="bottom"
         closable={false}

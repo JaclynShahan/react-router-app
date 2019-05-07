@@ -62,7 +62,7 @@ const {newPost: posts} = this.props.getPost
                   text={post.text}
                   subject={post.subject}
                   date={post.date}
-                 updatePostFn={this.updatePost}
+                  updatePostFn={this.updatePost}
                   deletePostFn={this.onDelete}
                   post={post}
                   />
