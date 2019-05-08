@@ -74,20 +74,37 @@ render() {
   //const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     return (
     
-        <Drawer
-        title="Leave a Comment"
+        <Drawer 
+        className='dialogMessage'
+        title= {this.props.getPost.selectedPost.subject}
         placement="bottom"
         closable={false}
         onClose={this.props.onClose}
         visible={this.props.visible}
         height="80vh"
       >
-      <section className="Comment_content">
+      <section className="dialogBox">
         <input
+        placeholder='Leave a Comment...'
           className="Comment_input"
           value={this.state.commentText}
           onChange={e => this.updateCommentText(e.target.value)}
         />
+          <Icon 
+          onClick={ () => this.updateComments(selectedPost.id, comments)} 
+          type="plus-circle" 
+          theme='twoTone'
+          twoToneColor='rgb(18, 179, 152'
+          style={{ fontSize: '45px' , margin: '5px'}}
+          />
+          <Icon 
+          onClick={() => this.props.onClose()}
+          type="close-circle" 
+          theme='twoTone'
+          twoToneColor='rgb(18,179, 152'
+          style={{ fontSize: '45px'}}
+          />
+        </section>
         {
        //   comments.map(comment => (
          //   <div>
@@ -95,12 +112,14 @@ render() {
              // {comment.commentText}
             //</div>
         //))
+       
         }
          <List
+         className='dialogBox'
           itemLayout="horizontal"
           dataSource={comments}
           renderItem={item => (
-         <List.Item>
+         <List.Item className='dialogMessage'>
          <List.Item.Meta
           
         avatar={<Avatar src="https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png" />}
@@ -111,19 +130,10 @@ render() {
     )}
   />
     
-      <button onClick={ () => this.updateComments(selectedPost.id, comments)} 
-          className="signup">
-          <Icon type="check" />
-          Submit
-        </button>
+    <section>
+    
        
-      <button 
-        onClick={() => this.props.onClose()}
-        type='primary'
-         className="signup">
-          <Icon type="close" />
-          Cancel
-        </button>
+      
      </section>
       </Drawer>
      

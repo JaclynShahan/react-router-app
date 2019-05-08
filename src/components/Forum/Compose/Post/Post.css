@@ -107,14 +107,13 @@
    align-items: right;
   }
 
-  .Comment_input {
-    border-radius: 5px;
-    border: 1px solid #2aabe2;
-    padding: 8px;
-    width: 35vw;
-    height: 4vh;
-    outline: none;
-    float: right;
+  .dialogBox {
     position: relative;
-    box-align: right;
-  } 
+    max-width: 100vw;
+    height: auto;
+    margin: 20px 10px;
+    padding: 5px;
+    background-image: linear-gradient(to right top, #6bd187, #5bc685, #4bbb84, #3cb081, #2da57e, #2ba47c, #29a37a, #27a278, #35ab76, #44b372, #54bb6e, #65c369);
+    border-radius: 3px;
+    border: 5px solid rgb(18, 179, 152);;
+  }

@@ -127,6 +127,10 @@ updatePostMehs(postMehs) {
   this.setState({postMehs})
 }
 
+updatePostDislikes(postDislikes) {
+  this.setState({postDislikes})
+}
+
 increaseBadge = () => {
   const count = this.state.count + 1;
   this.setState({ count });
@@ -263,13 +267,8 @@ onChange = (show) => {
           style={{ fontSize: '28px'}}
           />
           </Badge>
-        <input
-        placeholder='Leave a Comment...'
-          className="Comment_input"
-          value={this.state.commentText}
-          onChange={e => this.updateCommentText(e.target.value)}
-        />
-          <CommentBox className="Comment_input"
+      
+          <CommentBox className="dialogBox"
           visible={this.state.visible} 
           onClose={this.onClose} 
           updateCommentsFn={this.props.updateComments}
