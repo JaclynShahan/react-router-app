@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Icon } from 'antd';
+import { Icon, Avatar, Popover, Button } from 'antd';
 import './Header.css';
 import Search from '../Search/Search.js';
 
@@ -8,6 +8,7 @@ class ForumHeader extends Component {
     super();
     this.state = {};
   }
+
   render() {
     let styles = {
       fontSize: '18px',
@@ -15,6 +16,11 @@ class ForumHeader extends Component {
       alignItems: 'center',
       marginRight: '10px'
     }
+    let content = 
+      
+        <Button className='Compose_button'>Sign Out</Button>
+      
+    
     return (
         <section className="Header__parent">
         <section className="Header__content">
@@ -29,7 +35,11 @@ class ForumHeader extends Component {
             <Search />
 
             <div className="Header__profile">
-              <Icon type='robot' />
+            <Popover
+            className='sign_out' 
+            content={content}>
+            <Avatar src="https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png"/>
+            </Popover>
             </div>
           </div>
 

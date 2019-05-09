@@ -73,7 +73,6 @@ render() {
   const comments = selectedPost.comments || []
   //const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
     return (
-    
         <Drawer 
         className='dialogMessage'
         title= {this.props.getPost.selectedPost.subject}
@@ -115,13 +114,12 @@ render() {
        
         }
          <List
-         className='dialogBox'
+         className='comments'
           itemLayout="horizontal"
           dataSource={comments}
           renderItem={item => (
-         <List.Item className='dialogMessage'>
+         <List.Item>
          <List.Item.Meta
-          
         avatar={<Avatar src="https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png" />}
           title={item.userName}
           description={item.commentText}
@@ -130,13 +128,9 @@ render() {
     )}
   />
     
-    <section>
-    
-       
-      
-     </section>
+  
       </Drawer>
-     
+  
     )
     }
 }

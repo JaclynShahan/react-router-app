@@ -46,3 +46,26 @@
     height: 100%;
     align-items: center;
   }
+
+  .sign_out {
+      font-size: 12px;
+      font-weight: bold;
+   
+  }
+  .Compose_button {
+    color: rgb(20, 20, 20);
+    width: 6em;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 100;
+    font-size: 1em;
+    border: 1px solid rgba(255, 255, 255, .75);
+    background: lightgrey;
+    transition: all 200ms ease-in;
+    border-radius: .65em;
+  }
+    .Compose_button:hover {
+      background-color: rgb(18, 179, 152);
+      color: black;
+      border: none;
+  
+  }

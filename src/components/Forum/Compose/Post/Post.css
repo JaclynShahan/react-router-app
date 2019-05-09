@@ -19,6 +19,12 @@
     font-size: 20px;
     cursor: pointer;
   }
+  .Post__master-controls:hover {
+    background-color: rgb(18, 179, 152);
+    color: black;
+    border: none;
+
+}
   
   .Post__master-menu {
     display: none;

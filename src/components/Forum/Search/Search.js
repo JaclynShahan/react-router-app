@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon } from 'antd';
+import { Icon, Button } from 'antd';
 import './Search.css';
 
 
@@ -14,7 +14,12 @@ class Search extends Component {
         <div className="Search__content">
           <input placeholder="Search Your Feed" />
 
-          <Icon type='search'/>
+        
+          <Icon 
+          type='search'
+          style={{ fontSize:'15px' , margin: '5px'}}
+          />
+         
         </div>
         
       </section>
