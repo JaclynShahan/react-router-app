@@ -91,6 +91,7 @@ app.get('/api/getPosts', (req, res) => {
         )
     })
 })
+
 //app.get('/api/getComments', (req, res) => {
   //  console.log(req.query)
     // r.table('Posts').filter(function (post) {

@@ -36,6 +36,7 @@
     padding: 8px;
     width: 100%;
     outline: none;
+    margin: 5px;
   }
   .Subject__input {
     border-radius: 5px;
@@ -43,6 +44,7 @@
     padding: 8px;
     width: 40%;
     outline: none;
+    margin: 5px;
   }
   .Compose__bottom {
     margin-top: 20px;
