@@ -45,7 +45,7 @@ class Forum extends Component {
 
 render() {
   console.log(this.props)
-const {newPost: posts} = this.props.getPost
+const {newPost: posts, searchPosts} = this.props.getPost // renaming newPost to posts 
 
     return (
       <div className="App__parent">
@@ -55,6 +55,21 @@ const {newPost: posts} = this.props.getPost
 
           <Compose createPostFn={this.makePost}/>
           {
+            searchPosts.length > 0 ?   
+            searchPosts.map(post => (
+              <Post
+              key={post.id}
+              id={post.id}
+              text={post.text}
+              subject={post.subject}
+              date={post.date}
+              updatePostFn={this.updatePost}
+              deletePostFn={this.onDelete}
+              post={post}
+              />
+         
+
+          )) :
               posts.map(post => (
                   <Post
                   key={post.id}
