@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Icon, Avatar, Popover, Button } from 'antd';
 import './Header.css';
 import Search from '../Search/Search.js';
+import {connect} from 'react-redux';
 
 class ForumHeader extends Component {
   constructor() {
@@ -18,7 +19,9 @@ class ForumHeader extends Component {
     }
     let content = 
       
-        <Button className='Compose_button'>Sign Out</Button>
+        <Button 
+        onClick={() => this.props.userAdder({})}
+        className='Compose_button'>Sign Out</Button>
       
     
     return (
@@ -50,5 +53,21 @@ class ForumHeader extends Component {
     );
   }
 }
+const mapStateToProps = state => state;
+//you'll use this to dispatch payloads to redux
+const mapDispatchToProps = dispatch => ({
+  //functions added here will be available on props
+  userAdder(newUser) {
+    //dispatches and object with type and payload
+    //numberAdder seen in props
+    dispatch({
+      type: "ADD_USER", //type is where we send it
+      payload: newUser //payload is the data
+    });
+  }
+});
 
-export default ForumHeader;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ForumHeader);

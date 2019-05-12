@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import './Forum.css';
 import Header from '../Forum/Header/Header.js';
 import Compose from '../Forum/Compose/Compose.js';
-import Search from '../Forum/Search/Search.js';
 import './Forum.css';
 import Axios from 'axios';
 import Post from './Compose/Post/Post.js';
 import {connect} from 'react-redux';
-import Edit from './Compose/Post/Edit/Edit.js';
+import {Redirect} from 'react-router-dom';
+
 
 class Forum extends Component {
     constructor() {
@@ -86,7 +86,9 @@ const {newPost: posts, searchPosts} = this.props.getPost // renaming newPost to 
               ))
           
           }
-     
+      {
+             this.props.setUser.newUser.id ? "" : <Redirect to='/login'/>
+           }
 
         </section>
 

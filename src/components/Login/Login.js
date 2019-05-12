@@ -6,6 +6,7 @@ import { Icon } from "antd";
 import Modal from "./Modal";
 import DrawerForm from "./DrawerForm";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor() {
@@ -13,7 +14,8 @@ class Login extends Component {
     this.state = {
       visible: false,
       email: "",
-      password: ""
+      password: "",
+      redirect: ''
     };
   }
   showDrawer = () => {
@@ -32,9 +34,10 @@ class Login extends Component {
     Axios.get(
       `/api/getUser?email=${this.state.email}&password=${this.state.password}`
     ).then(resp => {
-      console.log(resp);
-    });
-
+      this.props.userAdder(resp.data[0])
+      
+    }).then(resp => this.setState({redirect: <Redirect to='/forum'/>}));
+    
     this.onClear();
   };
 
@@ -49,6 +52,11 @@ class Login extends Component {
     });
   };
   render() {
+    // if (this.props.setUser.newUser.id) {
+    //   return <Redirect to='/forum'/>
+    // } else {
+
+    
     console.log(this.state);
     console.log(this.props);
     return (
@@ -76,7 +84,9 @@ class Login extends Component {
             />
             <br />
             <br />
-
+           {
+             this.props.setUser.newUser.id ? <Redirect to='/forum'/> : ""
+           }
             <button
               onClick={e => this.getUser(e)}
               type="submit"
@@ -96,6 +106,23 @@ class Login extends Component {
       </div>
     );
   }
+//}
 }
+const mapStateToProps = state => state;
+//you'll use this to dispatch payloads to redux
+const mapDispatchToProps = dispatch => ({
+  //functions added here will be available on props
+  userAdder(newUser) {
+    //dispatches and object with type and payload
+    //numberAdder seen in props
+    dispatch({
+      type: "ADD_USER", //type is where we send it
+      payload: newUser //payload is the data
+    });
+  }
+});
 
-export default Login;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

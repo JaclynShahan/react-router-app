@@ -17,6 +17,7 @@ constructor() {
 
 
 render() {
+  console.log(window.location.pathname)
   return(
     <div>
       <div className="topnav" id="myTopnav">
