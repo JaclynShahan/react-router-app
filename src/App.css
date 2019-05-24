@@ -1,7 +1,6 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 .App {
   text-align: center;
-  
 }
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -39,5 +38,4 @@
   background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
-
 }

@@ -1,167 +1,127 @@
-import React, { Component } from 'react';
-import { Drawer, Icon, List, Avatar } from 'antd';
-import {connect} from 'react-redux';
-import Axios from 'axios';
-import './CommentBox.css';
-import {MdFace} from 'react-icons/md';
+import React, { Component } from 'react'
+import { Drawer, Icon, List, Avatar } from 'antd'
+import { connect } from 'react-redux'
+import Axios from 'axios'
+import './CommentBox.css'
 
 class CommentBox extends Component {
-    constructor() {
-        super()
-        this.state = {
-           // visible: false,
-        commentText: ""
-        }
+  constructor () {
+    super()
+    this.state = {
+      commentText: ''
     }
-   // componentDidMount() {
-     // Axios.get('/api/getComments').then(results => {this.props.commentAdder(results.data)})
-   // }
-    //updateComent() {
-      //const {text} = this.state;
-     // const {id, updatePostFn, hideEdit, createCommentFn} = this.props;
-      
-     // updatePostFn(id, text);
-  
- //   }
-   updateComments(id, comments) {
-    //  console.log(id, comments)
-     const newComments = comments
-     newComments.push({
-       userName: this.props.setUser.newUser.createUsername,
-       userId: this.props.setUser.newUser.id,
-       commentText: this.state.commentText
-     })
-     Axios.post(`/api/makeComment/${id}`, {
-       postId: this.props.getPost.selectedPost.id,
-       commentsArr: newComments
+  }
+
+  updateComments (id, comments) {
+    const newComments = comments
+    newComments.push({
+      userName: this.props.setUser.newUser.createUsername,
+      userId: this.props.setUser.newUser.email,
+      commentText: this.state.commentText
+    })
+    Axios.post(`/api/makeComment/${id}`, {
+      postId: this.props.getPost.selectedPost.id,
+      commentsArr: newComments
     }).then(resp => {
       console.log(resp)
       this.props.postAdder(resp.data)
-      // this.props.selectedPost(resp.data)
     })
-   
+
     this.emptyInput()
-}
-
- //makeComment = e  => {
-   //e.preventDefault();
-    //Axios.post("/api/createComment", {
-
-      //comments: this.state.comments
-
-    //}).then(resp => {
-      //this.props.commentAdder(resp.data);
-      //console.log(resp);
-    //})
-   //this.clearField()
-  //}
- 
-  updateCommentText( commentText ) {
-    this.setState({ commentText });
   }
 
+  updateCommentText (commentText) {
+    this.setState({ commentText })
+  }
 
   emptyInput = () => {
     this.setState({
-      commentText: ""
+      commentText: ''
     })
   }
-  
-  
-render() {
-  const {selectedPost} = this.props.getPost
-  const comments = selectedPost.comments || []
-  //const {text, date, deletePostFn, id, updatePostFn, createCommentFn} = this.props;
+
+  render () {
+    const { selectedPost } = this.props.getPost
+    const comments = selectedPost.comments || []
+
     return (
-        <Drawer 
+      <Drawer
         className='dialogMessage'
-        title= {this.props.getPost.selectedPost.subject}
-        placement="bottom"
+        title={this.props.getPost.selectedPost.subject}
+        placement='bottom'
         closable={false}
         onClose={this.props.onClose}
         visible={this.props.visible}
-        height="80vh"
+        height='80vh'
       >
-      <section className="dialogBox">
-        <input
-        placeholder='Leave a Comment...'
-          className="Comment_input"
-          value={this.state.commentText}
-          onChange={e => this.updateCommentText(e.target.value)}
-        />
-          <Icon 
-          onClick={ () => this.updateComments(selectedPost.id, comments)} 
-          type="plus-circle" 
-          theme='twoTone'
-          twoToneColor='rgb(18, 179, 152'
-          style={{ fontSize: '45px' , margin: '5px'}}
+        <section className='dialogBox'>
+          <input
+            placeholder='Leave a Comment...'
+            className='Comment_input'
+            value={this.state.commentText}
+            onChange={e => this.updateCommentText(e.target.value)}
           />
-          <Icon 
-          onClick={() => this.props.onClose()}
-          type="close-circle" 
-          theme='twoTone'
-          twoToneColor='rgb(18,179, 152'
-          style={{ fontSize: '45px'}}
+          <Icon
+            onClick={() => this.updateComments(selectedPost.id, comments)}
+            type='plus-circle'
+            theme='twoTone'
+            twoToneColor='rgb(18, 179, 152'
+            style={{ fontSize: '40px'}}
+          />
+          <Icon
+            onClick={() => this.props.onClose()}
+            type='close-circle'
+            theme='twoTone'
+            twoToneColor='rgb(18,179, 152'
+            style={{ fontSize: '40px' }}
           />
         </section>
-        {
-       //   comments.map(comment => (
-         //   <div>
-           //   <span>{comment.userName}</span>
-             // {comment.commentText}
-            //</div>
-        //))
-       
-        }
-         <List
-         className='comments'
-          itemLayout="horizontal"
+        {}
+        <List
+          className='comments'
+          itemLayout='horizontal'
           dataSource={comments}
           renderItem={item => (
-         <List.Item>
-         <List.Item.Meta
-        avatar={<Avatar src="https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png" />}
-          title={item.userName}
-          description={item.commentText}
+            <List.Item>
+              <List.Item.Meta
+                avatar={
+                  <Avatar src='https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png' />
+                }
+                title={item.userName}
+                description={item.commentText}
+              />
+            </List.Item>
+          )}
         />
-      </List.Item>
-    )}
-  />
-    
-  
       </Drawer>
-  
     )
-    }
+  }
 }
-//create mapStateToProps function
-const mapStateToProps = state => state;
-//you'll use this to dispatch payloads to redux
+
+const mapStateToProps = state => state
+
 const mapDispatchToProps = dispatch => ({
-  //functions added here will be available on props
-  postAdder(newPost) {
-    //dispatches and object with type and payload
-    //numberAdder seen in props
+  postAdder (newPost) {
     dispatch({
-      type: "ADD_POST", //type is where we send it
-      payload: newPost //payload is the data
-    });
+      type: 'ADD_POST',
+      payload: newPost
+    })
   },
-  setSelectedPost(selectedPost) {
+  setSelectedPost (selectedPost) {
     dispatch({
-      type: "SELECT_POST",
+      type: 'SELECT_POST',
       payload: selectedPost
     })
   },
-  addPost(e) {
+  addPost (e) {
     dispatch({
-      type: "SET_POST",
+      type: 'SET_POST',
       payload: e.target.value
-    });
+    })
   }
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  )(CommentBox);
+)(CommentBox)
