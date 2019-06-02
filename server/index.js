@@ -9,6 +9,8 @@ app = express()
 app.use(bodyParser.json())
 app.use(cors())
 
+app.use(express.static(`${__dirname}/../build`))
+
 let connection
 r.connect(
   {
@@ -170,6 +172,11 @@ app.delete('/api/deletePost/:id', (req, res) => {
       console.log(data)
       getPosts(res)
     })
+})
+
+const path = require("path")
+app.get("*", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "/../build/index.html"))
 })
 
 const port = 4001
